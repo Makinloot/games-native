@@ -1,6 +1,14 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar as ExpoBar } from "expo-status-bar";
+import {
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  Platform,
+  SafeAreaView,
+} from "react-native";
 import { useFonts } from "expo-font";
+// import { TEST_ENV } from "@env";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -13,20 +21,18 @@ export default function App() {
   if (!fontsLoaded) return null;
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text className="text-red-400 text-lg font-roboto">
         Open up App.js to start working on your app!
       </Text>
-      <StatusBar style="auto" />
-    </View>
+      <ExpoBar style="auto" />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 });
