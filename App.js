@@ -10,6 +10,7 @@ import {
 import { useFonts } from "expo-font";
 import Home from "./src/screens/Home";
 import Navbar from "./src/components/Navbar";
+import Card from "./src/components/Card";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,6 +25,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <Home />
+      <Card />
       <Navbar />
       <ExpoBar style="auto" />
     </SafeAreaView>
