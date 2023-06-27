@@ -8,7 +8,8 @@ import {
   SafeAreaView,
 } from "react-native";
 import { useFonts } from "expo-font";
-// import { TEST_ENV } from "@env";
+import Home from "./src/screens/Home";
+import Navbar from "./src/components/Navbar";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -22,9 +23,8 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text className="text-red-400 text-lg font-roboto">
-        Open up App.js to start working on your app!
-      </Text>
+      <Home />
+      <Navbar />
       <ExpoBar style="auto" />
     </SafeAreaView>
   );
@@ -34,5 +34,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    position: "relative",
   },
 });
