@@ -1,18 +1,21 @@
 import { View, Text, Image } from "react-native";
 
-const Card = ({ image, name, developer }) => {
+const Card = ({ background_image, name, rating }) => {
+  console.log(background_image);
   return (
-    <View className="w-44 rounded-lg bg-black p-2">
+    <View className="relative w-44 rounded-lg bg-black p-2">
       <Image
         source={{
-          uri: "https://i1.sndcdn.com/artworks-jFu7FGQdLNe0e4kI-Za5REw-t240x240.jpg",
+          uri: background_image,
         }}
         className="h-40 w-full rounded-lg"
       />
-      <Text className="my-1 font-robotoBold text-white" numberOfLines={2}>
-        Assassin's creed creed creed creed creed creed creed
+      <Text className="mb-3 mt-1 font-robotoBold text-white" numberOfLines={2}>
+        {name}
       </Text>
-      <Text className="font-robotoBold text-white/50">Publisher</Text>
+      <Text className="absolute bottom-1 left-2 font-robotoBold text-white/50">
+        Rating: {rating}
+      </Text>
     </View>
   );
 };
