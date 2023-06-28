@@ -6,10 +6,10 @@ const Search = () => {
   const [active, setActive] = useState(false);
   const [inputValue, setInputValue] = useState("");
   return (
-    <View className="relative h-11 bg-[#292C35] px-2 pr-8">
+    <View className="relative h-11 bg-aquaBlue px-2 pr-8">
       <TextInput
         placeholder="Search"
-        className="h-full w-full font-roboto text-lg text-white"
+        className="text-white h-full w-full font-roboto text-lg"
         placeholderTextColor="white"
         autoCorrect={false}
         onFocus={() => setActive(true)}

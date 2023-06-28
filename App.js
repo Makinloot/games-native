@@ -1,6 +1,5 @@
 import { StatusBar as ExpoBar } from "expo-status-bar";
 import {
-  StyleSheet,
   Text,
   View,
   StatusBar,
@@ -24,7 +23,12 @@ export default function App() {
   if (!fontsLoaded) return null;
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={{
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+      }}
+      className="relative flex-1 bg-nightBlue"
+    >
       {/* <Home /> */}
       <Browse />
       <Navbar />
@@ -32,12 +36,3 @@ export default function App() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    position: "relative",
-    backgroundColor: "#20375A",
-  },
-});

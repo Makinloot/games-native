@@ -3,7 +3,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 export default function filterGamePlatforms(platforms) {
   const filterPlatforms = platforms
     .map((platform) => {
-      const { slug } = platform.platform;
+      const { slug, id } = platform.platform;
       let name = "";
       if (slug === "pc") name = "microsoft-windows";
       else if (slug.includes("xbox")) name = "microsoft-xbox";
@@ -20,8 +20,10 @@ export default function filterGamePlatforms(platforms) {
       else if (slug.includes("nintendo")) name = "nintendo-game-boy";
       else if (slug === "wii" || slug === "wii-u") name = "nintendo-wii";
       else if (slug.includes("linux")) name = "linux";
-      return <MaterialCommunityIcons name={name} size={22} color="white" />;
+      return (
+        <MaterialCommunityIcons key={id} name={name} size={22} color="white" />
+      );
     })
-    .splice(0, 6);
+    .splice(0, 4);
   return filterPlatforms;
 }

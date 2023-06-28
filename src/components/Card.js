@@ -11,7 +11,7 @@ const Card = ({
 }) => {
   if (horizontal) {
     return (
-      <View className="bg-gray-700 w-full flex-row py-1">
+      <View className="w-full flex-row bg-aquaBlue py-1">
         <Image
           source={{
             uri: background_image,
@@ -21,16 +21,15 @@ const Card = ({
         />
         <View className="w-full justify-between">
           <Text
-            className="text-white font-robotoBold text-base"
+            className="font-robotoBold text-base text-white"
             numberOfLines={1}
           >
             {name}
           </Text>
-          <View className="flex-row items-center gap-0.5">
-            {/* <MaterialCommunityIcons name="sony-playstation" size={24} /> */}
+          <View className="flex-row gap-1">
             {filterGamePlatforms(platforms)}
           </View>
-          <Text className="text-white font-robotoLight text-xs">
+          <Text className="font-robotoLight text-xs text-white">
             {released.split("-").reverse().join(".")}
           </Text>
         </View>
@@ -39,7 +38,7 @@ const Card = ({
   }
 
   return (
-    <View className="relative w-72 bg-[#292C35] pb-2">
+    <View className="relative w-72 bg-aquaBlue pb-2">
       <Image
         source={{
           uri: background_image,
@@ -49,13 +48,13 @@ const Card = ({
       />
       <View className="p-2">
         <Text
-          className="text-white mb-3 mt-1 font-robotoBold text-xl"
+          className="mb-3 mt-1 font-robotoBold text-xl text-white"
           numberOfLines={1}
         >
           {name}
         </Text>
         <Text
-          className="text-white/50 absolute bottom-0 left-2 font-robotoBold"
+          className="absolute bottom-0 left-2 font-robotoBold text-white/50"
           numberOfLines={1}
         >
           {genres && genres.map((genre) => genre.name).join(", ")}

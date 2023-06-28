@@ -21,8 +21,7 @@ const Row = ({ title, url, limit, rowVertical, cardHorizontal }) => {
 
   useEffect(() => {
     fetchData(url);
-    console.log(data);
-  }, []);
+  }, [url]);
 
   return (
     <View className="my-8">

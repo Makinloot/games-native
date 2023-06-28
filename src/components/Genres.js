@@ -1,15 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { View, Text, ScrollView, FlatList } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import requests from "../utils/requests";
-import Card from "./Card";
 import Row from "./Row";
-import { API_KEY } from "@env";
 
 const Genres = () => {
   const [genres, setGenres] = useState([]);
-  const [gamesByGenre, setGamesByGenre] = useState([]);
+  const [activeGenre, setActiveGenre] = useState({
+    slug: "action",
+    name: "Action",
+  });
 
+  // fetch avaliable genres
   function fetchGenres() {
     axios
       .get(requests.genres)
@@ -17,50 +19,62 @@ const Genres = () => {
       .catch((err) => console.log(err));
   }
 
-  // function fetchByGenre(url) {
-  //   axios
-  //     .get(url)
-  //     .then((data) => setGamesByGenre(data.data.results.slice(0, 10)))
-  //     .catch((err) => console.log(err));
-  // }
+  // return row based on genre
+  function fetchGamesByGenre(url) {
+    return <Row url={url} limit={10} rowVertical cardHorizontal />;
+  }
 
   useEffect(() => {
     fetchGenres();
-    // fetchByGenre(requests.genre + "indie");
-
-    fetch(`https://api.rawg.io/api/platforms?key=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const test = data.results.map((result) => result.slug);
-        console.log("DATA", test);
-      });
   }, []);
 
   return (
-    <View>
+    <View className="relative my-4 bg-nightBlue p-1 pb-5">
+      {/* list of genres */}
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View className="h-16 flex-row items-start gap-2">
           {genres &&
-            genres.map((genre) => (
-              <Text
-                key={genre.id}
-                className="text-white bg-[#445586] p-1 font-robotoBold text-base"
-              >
-                {genre.name}
-              </Text>
-            ))}
+            genres.map((genre) => {
+              return (
+                <TouchableOpacity
+                  key={genre.id}
+                  onPress={() =>
+                    setActiveGenre({
+                      slug: genre.slug,
+                      name: genre.name,
+                    })
+                  }
+                  activeOpacity={0.1}
+                >
+                  <Text
+                    key={genre.id}
+                    className={`p-1 font-robotoBold text-base text-white ${
+                      genre.name === activeGenre.name
+                        ? `border-b border-b-slate-300 bg-nightBlue`
+                        : `bg-[#445586]`
+                    }`}
+                  >
+                    {genre.name}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
         </View>
       </ScrollView>
 
-      {/* <View>
-        <Row url={`${requests.genre}indie`} limit={10} cardHorizontal />
-      </View> */}
-      <Row
-        url={`${requests.genre}indie`}
-        limit={10}
-        rowVertical
-        cardHorizontal
-      />
+      {/* row component based on genre */}
+      {fetchGamesByGenre(`${requests.genre}${activeGenre.slug}`)}
+
+      {/* see more btn */}
+      <TouchableOpacity className="absolute bottom-0 left-1 bg-[#445586] p-2">
+        <Text className="font-robotoLight text-sm text-white/70">
+          see more{" "}
+          <Text className="font-robotoBold">
+            {activeGenre.name.toUpperCase()}
+          </Text>{" "}
+          games
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
