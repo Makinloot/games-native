@@ -2,7 +2,8 @@ import { View, Text, FlatList, ScrollView } from "react-native";
 import Search from "../components/Search";
 import Row from "../components/Row";
 
-import requests from "../requests";
+import requests from "../utils/requests";
+import Genres from "../components/Genres";
 
 const Browse = () => {
   return (
@@ -17,6 +18,7 @@ const Browse = () => {
             <Row title="popular upcoming" url={requests.upcoming} />
           </View>
         </View>
+        <Genres />
       </ScrollView>
     </View>
   );

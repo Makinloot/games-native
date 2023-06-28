@@ -8,6 +8,9 @@ module.exports = {
       robotoBold: ["robotoBold", "sans-serif"],
       robotoLight: ["robotoLight", "sans-serif"],
     },
+    colors: {
+      darkGrey: "#ffffff",
+    },
   },
   plugins: [],
 };

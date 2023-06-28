@@ -18,4 +18,6 @@ const upcomingUrl = `https://api.rawg.io/api/games?key=${API_KEY}&ordering=-adde
 export default requests = {
   weekly: weeklyUrl,
   upcoming: upcomingUrl,
+  genres: `https://api.rawg.io/api/genres?key=${API_KEY}`,
+  genre: `https://api.rawg.io/api/games?key=${API_KEY}&genres=`,
 };
