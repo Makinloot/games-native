@@ -1,21 +1,29 @@
 import { View, Text, Image } from "react-native";
 
-const Card = ({ background_image, name, rating }) => {
-  console.log(background_image);
+const Card = ({ background_image, name, genres }) => {
   return (
-    <View className="relative w-44 rounded-lg bg-black p-2">
+    <View className="relative w-72 bg-[#292C35] pb-2">
       <Image
         source={{
           uri: background_image,
         }}
-        className="h-40 w-full rounded-lg"
+        className="h-64 w-full"
+        style={{ resizeMode: "cover" }}
       />
-      <Text className="mb-3 mt-1 font-robotoBold text-white" numberOfLines={2}>
-        {name}
-      </Text>
-      <Text className="absolute bottom-1 left-2 font-robotoBold text-white/50">
-        Rating: {rating}
-      </Text>
+      <View className="p-2">
+        <Text
+          className="mb-3 mt-1 font-robotoBold text-xl text-white"
+          numberOfLines={1}
+        >
+          {name}
+        </Text>
+        <Text
+          className="absolute bottom-0 left-2 font-robotoBold text-white/50"
+          numberOfLines={1}
+        >
+          {genres && genres.map((genre) => genre.name).join(", ")}
+        </Text>
+      </View>
     </View>
   );
 };
