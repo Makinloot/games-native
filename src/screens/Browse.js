@@ -7,20 +7,18 @@ import Genres from "../components/Genres";
 
 const Browse = () => {
   return (
-    <View className="p-2">
+    <ScrollView className="p-2" showsVerticalScrollIndicator={false}>
       <Search />
-      <ScrollView className="mb-20 mt-6" showsVerticalScrollIndicator={false}>
+      <View>
         <View>
-          <View>
-            <Row title="best of the week" url={requests.weekly} />
-          </View>
-          <View>
-            <Row title="popular upcoming" url={requests.upcoming} />
-          </View>
+          <Row title="best of the week" url={requests.weekly} />
         </View>
-        <Genres />
-      </ScrollView>
-    </View>
+        <View>
+          <Row title="popular upcoming" url={requests.upcoming} />
+        </View>
+      </View>
+      <Genres />
+    </ScrollView>
   );
 };
 

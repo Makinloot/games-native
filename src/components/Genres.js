@@ -67,7 +67,7 @@ const Genres = () => {
 
       {/* see more btn */}
       <TouchableOpacity className="absolute bottom-0 left-1 bg-[#445586] p-2">
-        <Text className="font-robotoLight text-sm text-white/70">
+        <Text className="font-robotoLight text-sm text-white">
           see more{" "}
           <Text className="font-robotoBold">
             {activeGenre.name.toUpperCase()}

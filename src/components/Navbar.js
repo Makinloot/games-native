@@ -3,7 +3,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Navbar = () => {
   return (
-    <View className="absolute bottom-0 w-full flex-row justify-around bg-nightBlue px-1 py-2">
+    <View className="h-16 w-full flex-row items-center justify-around bg-nightBlue">
       <MaterialCommunityIcons name="home-variant" color="white" size={28} />
       <MaterialCommunityIcons name="magnify" color="white" size={28} />
     </View>
