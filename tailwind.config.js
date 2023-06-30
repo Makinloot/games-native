@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         nightBlue: "#171a21",
         aquaBlue: "#1b2838",
+        lightBlue: "#60B3E4",
       },
     },
     fontFamily: {
@@ -16,3 +17,4 @@ module.exports = {
   },
   plugins: [],
 };
+// 60B3E4

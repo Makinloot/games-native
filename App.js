@@ -11,6 +11,7 @@ import { useFonts } from "expo-font";
 import Home from "./src/screens/Home";
 import Navbar from "./src/components/Navbar";
 import Browse from "./src/screens/Browse";
+import Game from "./src/screens/Game";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,7 +31,8 @@ export default function App() {
       className="relative flex-1 bg-nightBlue"
     >
       {/* <Home /> */}
-      <Browse />
+      {/* <Browse /> */}
+      <Game />
       <Navbar />
       <ExpoBar style="light" />
     </SafeAreaView>

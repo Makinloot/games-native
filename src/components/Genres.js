@@ -21,7 +21,7 @@ const Genres = () => {
 
   // return row based on genre
   function fetchGamesByGenre(url) {
-    return <Row url={url} limit={10} rowVertical cardHorizontal />;
+    return <Row url={url} limit={10} rowVertical cardHorizontal useMap />;
   }
 
   useEffect(() => {

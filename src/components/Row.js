@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "./Card";
 
-const Row = ({ title, url, limit, rowVertical, cardHorizontal }) => {
+const Row = ({ title, url, limit, rowVertical, cardHorizontal, useMap }) => {
   const [data, setData] = useState([]);
 
   function fetchData(url) {
@@ -19,6 +19,31 @@ const Row = ({ title, url, limit, rowVertical, cardHorizontal }) => {
       .catch((err) => console.log(err));
   }
 
+  // return list of Card using FlatList
+  function renderFlatList(data) {
+    return (
+      <FlatList
+        data={data}
+        renderItem={({ item }) => (
+          <Card {...item} horizontal={cardHorizontal ? true : false} />
+        )}
+        horizontal={rowVertical ? false : true}
+        ItemSeparatorComponent={() => <View className="h-2 w-2" />}
+        showsHorizontalScrollIndicator={false}
+      />
+    );
+  }
+
+  // return list of Card using map
+  function renderListWithMap(data) {
+    const list = data.map((item) => (
+      <View key={item.id} className="mt-2">
+        <Card {...item} horizontal={cardHorizontal ? true : false} />
+      </View>
+    ));
+    return list;
+  }
+
   useEffect(() => {
     fetchData(url);
   }, [url]);
@@ -30,18 +55,7 @@ const Row = ({ title, url, limit, rowVertical, cardHorizontal }) => {
           {title}
         </Text>
       )}
-      <View>
-        <FlatList
-          data={data}
-          renderItem={(game) => (
-            <Card {...game.item} horizontal={cardHorizontal ? true : false} />
-          )}
-          keyExtractor={(game) => game.id}
-          horizontal={rowVertical ? false : true}
-          ItemSeparatorComponent={() => <View className="h-2 w-2" />}
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
+      <View>{useMap ? renderListWithMap(data) : renderFlatList(data)}</View>
     </View>
   );
 };
