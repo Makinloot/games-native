@@ -8,7 +8,7 @@ const GameAdditionalContent = ({ data }) => {
         content for this game
       </Text>
       {data.map((item) => (
-        <View className="mt-1 bg-[#3A434B] p-1">
+        <View className="mt-1 bg-[#3A434B] p-1" key={item.id}>
           <Text className="font-robotoLight text-white">{item.name}</Text>
         </View>
       ))}

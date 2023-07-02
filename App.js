@@ -12,6 +12,8 @@ import Home from "./src/screens/Home";
 import Navbar from "./src/components/Navbar";
 import Browse from "./src/screens/Browse";
 import Game from "./src/screens/Game";
+import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -23,18 +25,38 @@ export default function App() {
   // Show a loading screen or return null
   if (!fontsLoaded) return null;
 
+  const Stack = createNativeStackNavigator();
+  const navigationTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: "transparent",
+    },
+  };
+
   return (
-    <SafeAreaView
-      style={{
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-      }}
-      className="relative flex-1 bg-nightBlue"
-    >
-      {/* <Home /> */}
-      {/* <Browse /> */}
-      <Game />
-      <Navbar />
-      <ExpoBar style="light" />
-    </SafeAreaView>
+    <NavigationContainer theme={navigationTheme}>
+      <SafeAreaView
+        style={{
+          paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        }}
+        className="relative flex-1 bg-nightBlue"
+      >
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Browse" component={Browse} />
+          <Stack.Screen
+            name="Game"
+            component={Game}
+            options={({ route }) => ({ title: `Game ${route.params.id}` })}
+          />
+        </Stack.Navigator>
+        {/* <Home /> */}
+        {/* <Browse /> */}
+        {/* <Game id={3328} /> */}
+        <Navbar />
+        <ExpoBar style="light" />
+      </SafeAreaView>
+    </NavigationContainer>
   );
 }

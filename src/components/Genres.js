@@ -4,12 +4,14 @@ import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import requests from "../utils/requests";
 import Row from "./Row";
 
-const Genres = () => {
+const Genres = ({ navigation }) => {
   const [genres, setGenres] = useState([]);
   const [activeGenre, setActiveGenre] = useState({
     slug: "action",
     name: "Action",
   });
+
+  const handleNavigation = (id) => navigation.navigate("Game", { id });
 
   // fetch avaliable genres
   function fetchGenres() {
@@ -21,7 +23,16 @@ const Genres = () => {
 
   // return row based on genre
   function fetchGamesByGenre(url) {
-    return <Row url={url} limit={10} rowVertical cardHorizontal useMap />;
+    return (
+      <Row
+        url={url}
+        limit={10}
+        rowVertical
+        cardHorizontal
+        useMap
+        navigate={handleNavigation}
+      />
+    );
   }
 
   useEffect(() => {

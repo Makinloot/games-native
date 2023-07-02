@@ -16,12 +16,15 @@ import DetailsText from "../components/DetailsText";
 import ThumbnailSlider from "../components/ThumbnailSlider";
 import GameAdditionalContent from "../components/GameAdditionalContent";
 
-const Game = ({ id }) => {
+const Game = ({ route, navigation }) => {
+  const { id } = route.params;
   const [game, setGame] = useState(null);
   const [screenshots, setScreenshots] = useState([]);
   const [additions, setAdditions] = useState([]);
   const [trailers, setTrailers] = useState([]);
+  const [sameSeries, setSameSeries] = useState([]);
 
+  const handleNavigation = (id) => navigation.navigate("Game", { id });
   // fetch game data
   function fetchGame() {
     axios
@@ -29,6 +32,7 @@ const Game = ({ id }) => {
       .then(({ data }) => setGame(data))
       .catch((err) => console.log(err));
   }
+  // TODO: write useFetch function to minimize code
   function fetchGameScreenshots() {
     axios
       .get(`https://api.rawg.io/api/games/${id}/screenshots?key=${API_KEY}`)
@@ -47,16 +51,35 @@ const Game = ({ id }) => {
       .then(({ data }) => setTrailers(data.results))
       .catch((err) => console.log(err));
   }
+  function gameGameFromSameSeries() {
+    axios
+      .get(
+        `https://api.rawg.io/api/games/${id}/game-series?key=${API_KEY}&page_size=10`
+      )
+      .then(({ data }) => setSameSeries(data.results))
+      .catch((err) => console.log(err));
+  }
+  function similarGames() {
+    axios
+      .get(
+        `https://api.rawg.io/api/games/${id}/suggested&page_size=10?key=${API_KEY}`
+      )
+      .then(({ data }) => console.log("similar", data))
+      .catch((err) => console.log(err));
+  }
 
   useEffect(() => {
     fetchGame();
     fetchGameScreenshots();
     fetchGameAdditions();
     fetchGameTrailers();
+    gameGameFromSameSeries();
+    similarGames();
     // console.log(game);
     // console.log(screenshots);
     // console.log(additions);
     // console.log(trailers);
+    // console.log(sameSeries);
   }, [id]);
 
   if (game) {
@@ -138,7 +161,27 @@ const Game = ({ id }) => {
             </View>
           )}
           <ThumbnailSlider screenshots={screenshots} trailers={trailers} />
-          {additions && <GameAdditionalContent data={additions} />}
+          {additions.length > 0 && <GameAdditionalContent data={additions} />}
+          {sameSeries.length > 0 && (
+            <View>
+              <Text className="my-2 mt-4 font-robotoBold uppercase text-white">
+                games from same series
+              </Text>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {sameSeries.map((item, i) => (
+                  <TouchableOpacity
+                    onPress={() => handleNavigation(item.id)}
+                    className={i !== 0 && `ml-2`}
+                  >
+                    <Image
+                      source={{ uri: item.background_image }}
+                      className="h-20 w-36"
+                    />
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </View>
+          )}
         </ScrollView>
       </View>
     );
@@ -146,11 +189,6 @@ const Game = ({ id }) => {
 
   // TODO: return loading screen & error
   return null;
-};
-
-// delete later
-Game.defaultProps = {
-  id: 12447,
 };
 
 export default Game;

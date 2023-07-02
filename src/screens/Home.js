@@ -1,9 +1,11 @@
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 
-const Home = () => {
+const Home = ({ navigation }) => {
+  const handleNavigation = navigation.navigate("Browse");
   return (
     <View>
-      <Text className="text-red-200 text-lg">Home</Text>
+      <Text className="text-lg text-red-200">Home</Text>
+      {/* <Button title="navigate to browse" /> */}
     </View>
   );
 };

@@ -1,9 +1,17 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "./Card";
 
-const Row = ({ title, url, limit, rowVertical, cardHorizontal, useMap }) => {
+const Row = ({
+  title,
+  url,
+  limit,
+  rowVertical,
+  cardHorizontal,
+  useMap,
+  navigate,
+}) => {
   const [data, setData] = useState([]);
 
   function fetchData(url) {
@@ -25,7 +33,9 @@ const Row = ({ title, url, limit, rowVertical, cardHorizontal, useMap }) => {
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <Card {...item} horizontal={cardHorizontal ? true : false} />
+          <TouchableOpacity onPress={() => navigate && navigate(item.id)}>
+            <Card {...item} horizontal={cardHorizontal ? true : false} />
+          </TouchableOpacity>
         )}
         horizontal={rowVertical ? false : true}
         ItemSeparatorComponent={() => <View className="h-2 w-2" />}
@@ -37,9 +47,13 @@ const Row = ({ title, url, limit, rowVertical, cardHorizontal, useMap }) => {
   // return list of Card using map
   function renderListWithMap(data) {
     const list = data.map((item) => (
-      <View key={item.id} className="mt-2">
+      <TouchableOpacity
+        key={item.id}
+        className="mt-2"
+        onPress={() => navigate && navigate(item.id)}
+      >
         <Card {...item} horizontal={cardHorizontal ? true : false} />
-      </View>
+      </TouchableOpacity>
     ));
     return list;
   }
