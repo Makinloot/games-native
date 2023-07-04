@@ -20,4 +20,5 @@ export default requests = {
   upcoming: upcomingUrl,
   genres: `https://api.rawg.io/api/genres?key=${API_KEY}`,
   genre: `https://api.rawg.io/api/games?key=${API_KEY}&genres=`,
+  search: `https://api.rawg.io/api/games?key=${API_KEY}&search=`,
 };

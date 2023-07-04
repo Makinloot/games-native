@@ -6,9 +6,9 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import Search from "../components/Search";
+import Search from "../components/search/Search";
 import requests from "../utils/requests";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { API_KEY } from "@env";
 import noImg from "../../assets/no-img.png";
@@ -23,6 +23,7 @@ const Game = ({ route, navigation }) => {
   const [additions, setAdditions] = useState([]);
   const [trailers, setTrailers] = useState([]);
   const [sameSeries, setSameSeries] = useState([]);
+  const scrollViewRef = useRef();
 
   const handleNavigation = (id) => navigation.navigate("Game", { id });
   // fetch game data
@@ -68,7 +69,11 @@ const Game = ({ route, navigation }) => {
       .catch((err) => console.log(err));
   }
 
+  const scrollToTop = () =>
+    scrollViewRef?.current?.scrollTo({ y: 0, animated: true });
+
   useEffect(() => {
+    scrollToTop();
     fetchGame();
     fetchGameScreenshots();
     fetchGameAdditions();
@@ -104,8 +109,15 @@ const Game = ({ route, navigation }) => {
 
     return (
       <View className="flex-1 p-2">
-        <Search />
-        <ScrollView className="my-5" showsVerticalScrollIndicator={false}>
+        <View>
+          <Search navigation={navigation} />
+        </View>
+        <ScrollView
+          ref={scrollViewRef}
+          className="my-5"
+          showsVerticalScrollIndicator={false}
+        >
+          {/* game image and name */}
           <Image
             source={background_image ? { uri: background_image } : noImg}
             className="h-56 w-full"
@@ -113,6 +125,8 @@ const Game = ({ route, navigation }) => {
           <Text className="my-3 font-robotoBold text-xl text-white">
             {name}
           </Text>
+
+          {/* game developers & publishers */}
           {developers && <DetailsText data={developers} title="developer" />}
           {publishers && (
             <View className="my-1">
@@ -120,12 +134,16 @@ const Game = ({ route, navigation }) => {
             </View>
           )}
           <DetailsText title="released" customText={formattedDate} />
+
+          {/* game description */}
           <Text
             className="my-6 font-robotoLight text-sm text-white"
             numberOfLines={10}
           >
             {description_raw}
           </Text>
+
+          {/* game tags */}
           {tags && (
             <View>
               <Text className="mb-2 font-robotoBold text-xl uppercase text-[#8A97A0]">
@@ -145,6 +163,8 @@ const Game = ({ route, navigation }) => {
               </ScrollView>
             </View>
           )}
+
+          {/* game ratings */}
           {ratings && (
             <View>
               <Text className="mb-2 font-robotoBold text-xl uppercase text-[#8A97A0]">
@@ -152,7 +172,7 @@ const Game = ({ route, navigation }) => {
               </Text>
               <View className="bg-[#445586] p-1">
                 <DetailsText
-                  title={`mostly ${ratings[0].title}`}
+                  title={`mostly ${ratings[0]?.title}`}
                   customText={`total reviews ${ratings_count}`}
                   titleColor="text-white"
                   longTitle
@@ -160,8 +180,14 @@ const Game = ({ route, navigation }) => {
               </View>
             </View>
           )}
+
+          {/* game screenshots */}
           <ThumbnailSlider screenshots={screenshots} trailers={trailers} />
+
+          {/* game dlc packs */}
           {additions.length > 0 && <GameAdditionalContent data={additions} />}
+
+          {/* games from same series */}
           {sameSeries.length > 0 && (
             <View>
               <Text className="my-2 mt-4 font-robotoBold uppercase text-white">
@@ -172,6 +198,7 @@ const Game = ({ route, navigation }) => {
                   <TouchableOpacity
                     onPress={() => handleNavigation(item.id)}
                     className={i !== 0 && `ml-2`}
+                    key={item.id}
                   >
                     <Image
                       source={{ uri: item.background_image }}

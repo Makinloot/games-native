@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import requests from "../utils/requests";
 import Row from "./Row";
+import TagsSlider from "./TagsSlider";
 
 const Genres = ({ navigation }) => {
   const [genres, setGenres] = useState([]);
@@ -42,9 +43,16 @@ const Genres = ({ navigation }) => {
   return (
     <View className="relative my-4 bg-nightBlue p-1 pb-5">
       {/* list of genres */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View className="h-16 flex-row items-start gap-2">
-          {genres &&
+      {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}> */}
+      {/* <View className="h-16 flex-row items-start gap-2"> */}
+      <View className="">
+        <TagsSlider
+          data={genres}
+          clickable
+          active={activeGenre}
+          setActive={setActiveGenre}
+        />
+        {/* {genres &&
             genres.map((genre) => {
               return (
                 <TouchableOpacity
@@ -69,9 +77,9 @@ const Genres = ({ navigation }) => {
                   </Text>
                 </TouchableOpacity>
               );
-            })}
-        </View>
-      </ScrollView>
+            })} */}
+      </View>
+      {/* </ScrollView> */}
 
       {/* row component based on genre */}
       {fetchGamesByGenre(`${requests.genre}${activeGenre.slug}`)}

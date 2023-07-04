@@ -1,5 +1,5 @@
 import { View, Text, FlatList, ScrollView } from "react-native";
-import Search from "../components/Search";
+import Search from "../components/search/Search";
 import Row from "../components/Row";
 
 import requests from "../utils/requests";
@@ -11,9 +11,12 @@ const Browse = ({ navigation }) => {
   return (
     <View className="p-2 pb-12">
       <View className="pb-2">
-        <Search />
+        <Search navigation={navigation} />
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="relative z-10"
+      >
         <View>
           <Row
             title="best of the week"

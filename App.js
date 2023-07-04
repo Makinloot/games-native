@@ -14,6 +14,7 @@ import Browse from "./src/screens/Browse";
 import Game from "./src/screens/Game";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useState } from "react";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -21,9 +22,7 @@ export default function App() {
     robotoBold: require("./assets/fonts/Roboto-Bold.ttf"),
     robotoLight: require("./assets/fonts/Roboto-Light.ttf"),
   });
-
-  // Show a loading screen or return null
-  if (!fontsLoaded) return null;
+  const [hideNavbar, setHideNavbar] = useState(false);
 
   const Stack = createNativeStackNavigator();
   const navigationTheme = {
@@ -34,6 +33,8 @@ export default function App() {
     },
   };
 
+  // Show a loading screen or return null
+  if (!fontsLoaded) return null;
   return (
     <NavigationContainer theme={navigationTheme}>
       <SafeAreaView
@@ -54,7 +55,7 @@ export default function App() {
         {/* <Home /> */}
         {/* <Browse /> */}
         {/* <Game id={3328} /> */}
-        <Navbar />
+        {!hideNavbar && <Navbar />}
         <ExpoBar style="light" />
       </SafeAreaView>
     </NavigationContainer>
