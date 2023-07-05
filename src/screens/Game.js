@@ -15,76 +15,35 @@ import noImg from "../../assets/no-img.png";
 import DetailsText from "../components/DetailsText";
 import ThumbnailSlider from "../components/ThumbnailSlider";
 import GameAdditionalContent from "../components/GameAdditionalContent";
+import { useGet } from "../utils/useGet";
 
 const Game = ({ route, navigation }) => {
   const { id } = route.params;
-  const [game, setGame] = useState(null);
-  const [screenshots, setScreenshots] = useState([]);
-  const [additions, setAdditions] = useState([]);
-  const [trailers, setTrailers] = useState([]);
-  const [sameSeries, setSameSeries] = useState([]);
   const scrollViewRef = useRef();
 
-  const handleNavigation = (id) => navigation.navigate("Game", { id });
-  // fetch game data
-  function fetchGame() {
-    axios
-      .get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
-      .then(({ data }) => setGame(data))
-      .catch((err) => console.log(err));
-  }
-  // TODO: write useFetch function to minimize code
-  function fetchGameScreenshots() {
-    axios
-      .get(`https://api.rawg.io/api/games/${id}/screenshots?key=${API_KEY}`)
-      .then(({ data }) => setScreenshots(data.results))
-      .catch((err) => console.log(err));
-  }
-  function fetchGameAdditions() {
-    axios
-      .get(`https://api.rawg.io/api/games/${id}/additions?key=${API_KEY}`)
-      .then(({ data }) => setAdditions(data.results))
-      .catch((err) => console.log(err));
-  }
-  function fetchGameTrailers() {
-    axios
-      .get(`https://api.rawg.io/api/games/${id}/movies?key=${API_KEY}`)
-      .then(({ data }) => setTrailers(data.results))
-      .catch((err) => console.log(err));
-  }
-  function gameGameFromSameSeries() {
-    axios
-      .get(
-        `https://api.rawg.io/api/games/${id}/game-series?key=${API_KEY}&page_size=10`
-      )
-      .then(({ data }) => setSameSeries(data.results))
-      .catch((err) => console.log(err));
-  }
-  function similarGames() {
-    axios
-      .get(
-        `https://api.rawg.io/api/games/${id}/suggested&page_size=10?key=${API_KEY}`
-      )
-      .then(({ data }) => console.log("similar", data))
-      .catch((err) => console.log(err));
-  }
+  const gameUrl = `https://api.rawg.io/api/games/${id}?key=${API_KEY}`;
+  const sameSeriesUrl = `https://api.rawg.io/api/games/${id}/game-series?key=${API_KEY}&page_size=10`;
+  const gameAdditionsUrl = `https://api.rawg.io/api/games/${id}/additions?key=${API_KEY}`;
+  const { data: game, refetch } = useGet(gameUrl, "game");
+  const { data: sameSeries, refetch: sameSeriesRefetch } = useGet(
+    sameSeriesUrl,
+    "sameSeries"
+  );
+  const { data: additions, refetch: additionsRefetch } = useGet(
+    gameAdditionsUrl,
+    "additions"
+  );
 
   const scrollToTop = () =>
     scrollViewRef?.current?.scrollTo({ y: 0, animated: true });
+  const handleNavigation = (id) => navigation.navigate("Game", { id });
 
   useEffect(() => {
+    refetch();
+    sameSeriesRefetch();
+    additionsRefetch();
     scrollToTop();
-    fetchGame();
-    fetchGameScreenshots();
-    fetchGameAdditions();
-    fetchGameTrailers();
-    gameGameFromSameSeries();
-    similarGames();
-    // console.log(game);
-    // console.log(screenshots);
     // console.log(additions);
-    // console.log(trailers);
-    // console.log(sameSeries);
   }, [id]);
 
   if (game) {
@@ -182,19 +141,21 @@ const Game = ({ route, navigation }) => {
           )}
 
           {/* game screenshots */}
-          <ThumbnailSlider screenshots={screenshots} trailers={trailers} />
+          <ThumbnailSlider id={id} />
 
           {/* game dlc packs */}
-          {additions.length > 0 && <GameAdditionalContent data={additions} />}
+          {additions?.results?.length > 0 && (
+            <GameAdditionalContent data={additions.results} />
+          )}
 
           {/* games from same series */}
-          {sameSeries.length > 0 && (
+          {sameSeries?.results?.length > 0 && (
             <View>
               <Text className="my-2 mt-4 font-robotoBold uppercase text-white">
                 games from same series
               </Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {sameSeries.map((item, i) => (
+                {sameSeries.results.map((item, i) => (
                   <TouchableOpacity
                     onPress={() => handleNavigation(item.id)}
                     className={i !== 0 && `ml-2`}
