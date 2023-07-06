@@ -1,5 +1,4 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import { useState } from "react";
 
 const TagsSlider = ({ data, clickable, active, setActive }) => {
   function handlePress(item) {

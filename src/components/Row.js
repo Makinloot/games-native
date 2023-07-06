@@ -1,37 +1,16 @@
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
 import Card from "./Card";
+import { useGet } from "../utils/useGet";
 
-const Row = ({
-  title,
-  url,
-  limit,
-  rowVertical,
-  cardHorizontal,
-  useMap,
-  navigate,
-}) => {
-  const [data, setData] = useState([]);
-
-  function fetchData(url) {
-    axios
-      .get(url)
-      .then((res) => {
-        if (limit) {
-          setData(res.data.results.slice(0, limit));
-        } else {
-          setData(res.data.results);
-        }
-      })
-      .catch((err) => console.log(err));
-  }
+const Row = ({ title, url, rowVertical, cardHorizontal, useMap, navigate }) => {
+  const { data, refetch } = useGet(url, title);
 
   // return list of Card using FlatList
   function renderFlatList(data) {
     return (
       <FlatList
-        data={data}
+        data={data?.results}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => navigate && navigate(item.id)}>
             <Card {...item} horizontal={cardHorizontal ? true : false} />
@@ -46,7 +25,7 @@ const Row = ({
 
   // return list of Card using map
   function renderListWithMap(data) {
-    const list = data.map((item) => (
+    const list = data?.results?.map((item) => (
       <TouchableOpacity
         key={item.id}
         className="mt-2"
@@ -59,7 +38,7 @@ const Row = ({
   }
 
   useEffect(() => {
-    fetchData(url);
+    refetch();
   }, [url]);
 
   return (

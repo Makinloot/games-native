@@ -1,4 +1,4 @@
-import { View, Text, FlatList, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 import Search from "../components/search/Search";
 import Row from "../components/Row";
 

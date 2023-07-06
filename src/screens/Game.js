@@ -1,21 +1,12 @@
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
-import Search from "../components/search/Search";
-import requests from "../utils/requests";
-import { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import { useEffect, useRef } from "react";
 import { API_KEY } from "@env";
-import noImg from "../../assets/no-img.png";
+import { useGet } from "../utils/useGet";
+import Search from "../components/search/Search";
 import DetailsText from "../components/DetailsText";
 import ThumbnailSlider from "../components/ThumbnailSlider";
 import GameAdditionalContent from "../components/GameAdditionalContent";
-import { useGet } from "../utils/useGet";
+import noImg from "../../assets/no-img.png";
 
 const Game = ({ route, navigation }) => {
   const { id } = route.params;
@@ -43,7 +34,6 @@ const Game = ({ route, navigation }) => {
     sameSeriesRefetch();
     additionsRefetch();
     scrollToTop();
-    // console.log(additions);
   }, [id]);
 
   if (game) {
