@@ -1,5 +1,6 @@
 import { View, Text, Image } from "react-native";
 import filterGamePlatforms from "../utils/platforms";
+import noImg from "../../assets/no-img.png";
 
 const Card = ({
   background_image,
@@ -13,9 +14,13 @@ const Card = ({
     return (
       <View className="w-full flex-row bg-aquaBlue py-1">
         <Image
-          source={{
-            uri: background_image,
-          }}
+          source={
+            background_image
+              ? {
+                  uri: background_image,
+                }
+              : noImg
+          }
           className="mr-1 h-20 w-1/3"
           style={{ resizeMode: "cover" }}
         />
@@ -40,12 +45,17 @@ const Card = ({
   return (
     <View className="relative w-72 bg-aquaBlue pb-2">
       <Image
-        source={{
-          uri: background_image,
-        }}
+        source={
+          background_image
+            ? {
+                uri: background_image,
+              }
+            : noImg
+        }
         className="h-64 w-full"
         style={{ resizeMode: "cover" }}
       />
+
       <View className="p-2">
         <Text
           className="mb-3 mt-1 font-robotoBold text-xl text-white"
@@ -53,6 +63,7 @@ const Card = ({
         >
           {name}
         </Text>
+
         <Text
           className="absolute bottom-0 left-2 font-robotoBold text-white/50"
           numberOfLines={1}

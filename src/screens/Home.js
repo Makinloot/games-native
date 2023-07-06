@@ -5,7 +5,7 @@ const Home = ({ navigation }) => {
   return (
     <View>
       <Text className="text-lg text-red-200">Home</Text>
-      <TouchableOpacity onPress={() => handleNavigation()}>
+      <TouchableOpacity onPress={handleNavigation}>
         <Text className="text-white">navigate</Text>
       </TouchableOpacity>
       {/* <Button title="navigate to browse" /> */}

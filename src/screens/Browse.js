@@ -1,6 +1,6 @@
 import { View, ScrollView } from "react-native";
 import Search from "../components/search/Search";
-import Row from "../components/Row";
+import Row from "../components/row/Row";
 
 import requests from "../utils/requests";
 import Genres from "../components/Genres";

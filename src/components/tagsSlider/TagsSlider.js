@@ -1,6 +1,8 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import TagsSliderSkeleton from "./TagsSliderSkeleton";
+// import TagsSliderSkeleton from "./tagsSliderSkeleton";
 
-const TagsSlider = ({ data, clickable, active, setActive }) => {
+const TagsSlider = ({ data, clickable, active, setActive, isLoading }) => {
   function handlePress(item) {
     setActive({
       slug: item.slug,
@@ -8,7 +10,7 @@ const TagsSlider = ({ data, clickable, active, setActive }) => {
     });
   }
 
-  if (!data) return;
+  if (isLoading) return <TagsSliderSkeleton />;
 
   return (
     <View>
@@ -17,7 +19,7 @@ const TagsSlider = ({ data, clickable, active, setActive }) => {
       </Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View className="h-16 flex-row items-start gap-2">
-          {data.map((item) => (
+          {data?.map((item) => (
             <TouchableOpacity
               activeOpacity={1}
               key={item.id}

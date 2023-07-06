@@ -46,7 +46,7 @@ export default function App() {
           className="relative flex-1 bg-nightBlue"
         >
           <Stack.Navigator>
-            <Stack.Screen name="Home" component={Home} />
+            {/* <Stack.Screen name="Home" component={Home} /> */}
             <Stack.Screen name="Browse" component={Browse} />
             <Stack.Screen
               name="Game"

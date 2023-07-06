@@ -1,10 +1,11 @@
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useEffect } from "react";
-import Card from "./Card";
-import { useGet } from "../utils/useGet";
+import Card from "../Card";
+import { useGet } from "../../utils/useGet";
+import RowSkeleton from "./RowSkeleton";
 
 const Row = ({ title, url, rowVertical, cardHorizontal, useMap, navigate }) => {
-  const { data, refetch } = useGet(url, title);
+  const { data, refetch, isLoading } = useGet(url, title);
 
   // return list of Card using FlatList
   function renderFlatList(data) {
@@ -41,6 +42,10 @@ const Row = ({ title, url, rowVertical, cardHorizontal, useMap, navigate }) => {
     refetch();
   }, [url]);
 
+  if (isLoading) {
+    if (useMap) return <RowSkeleton useMap />;
+    else return <RowSkeleton />;
+  }
   return (
     <View className="my-8">
       {title && (
