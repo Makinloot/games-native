@@ -17,10 +17,7 @@ const DetailsText = ({
       >
         {title}
       </Text>
-      <Text
-        className={`font-roboto text-base capitalize ${textColor}`}
-        numberOfLines={1}
-      >
+      <Text className={`white font-roboto text-base capitalize ${textColor}`}>
         {data ? data.map((creator) => creator.name).join(", ") : customText}
       </Text>
     </View>

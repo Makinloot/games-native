@@ -39,8 +39,6 @@ const Genres = ({ navigation }) => {
       {/* row component based on genre */}
       <Row
         url={`${requests.genre}${activeGenre.slug}&page_size=10`}
-        rowVertical
-        cardHorizontal
         useMap
         navigate={handleNavigation}
       />

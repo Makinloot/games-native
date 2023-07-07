@@ -1,10 +1,10 @@
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useEffect } from "react";
-import Card from "../Card";
+import Card from "../card/Card";
 import { useGet } from "../../utils/useGet";
 import RowSkeleton from "./RowSkeleton";
 
-const Row = ({ title, url, rowVertical, cardHorizontal, useMap, navigate }) => {
+const Row = ({ title, url, useMap, navigate }) => {
   const { data, refetch, isLoading } = useGet(url, title);
 
   // return list of Card using FlatList
@@ -14,10 +14,10 @@ const Row = ({ title, url, rowVertical, cardHorizontal, useMap, navigate }) => {
         data={data?.results}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => navigate && navigate(item.id)}>
-            <Card {...item} horizontal={cardHorizontal ? true : false} />
+            <Card {...item} />
           </TouchableOpacity>
         )}
-        horizontal={rowVertical ? false : true}
+        horizontal
         ItemSeparatorComponent={() => <View className="h-2 w-2" />}
         showsHorizontalScrollIndicator={false}
       />
@@ -32,7 +32,7 @@ const Row = ({ title, url, rowVertical, cardHorizontal, useMap, navigate }) => {
         className="mt-2"
         onPress={() => navigate && navigate(item.id)}
       >
-        <Card {...item} horizontal={cardHorizontal ? true : false} />
+        <Card {...item} vertical />
       </TouchableOpacity>
     ));
     return list;

@@ -1,18 +1,22 @@
 import { View, ScrollView } from "react-native";
+import LinearGradientAnimation from "../linearGradientAnimation/LinearGradientAnimation";
 
 const TagsSliderSkeleton = () => {
   const data = Array.from({ length: 10 });
   return (
     <View>
-      <View className="mb-2 h-6 w-1/4 bg-red-200" />
+      <LinearGradientAnimation styles="mb-2 h-6 w-1/4" />
 
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View className="h-16 w-full flex-row items-start gap-2">
+      <View>
+        <View className="h-16 w-full flex-row items-start">
           {data.map((item, i) => (
-            <View className="h-8 w-24 bg-red-200" key={i} />
+            <LinearGradientAnimation
+              styles={`h-8 w-24 ${i !== 0 && `ml-4`}`}
+              key={i}
+            />
           ))}
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 };

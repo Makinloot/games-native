@@ -11,7 +11,7 @@ import { useFonts } from "expo-font";
 import Home from "./src/screens/Home";
 import Navbar from "./src/components/Navbar";
 import Browse from "./src/screens/Browse";
-import Game from "./src/screens/Game";
+import Game from "./src/screens/game/Game";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useState } from "react";

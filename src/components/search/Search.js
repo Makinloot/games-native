@@ -13,7 +13,7 @@ const Search = ({ navigation }) => {
   useEffect(() => {
     if (inputValue.length > 3) {
       axios
-        .get(`${requests.search}${inputValue}`)
+        .get(`${requests.search}${inputValue}&page_size=10`)
         .then((res) => setSearchResults(res.data.results));
     } else setSearchResults([]);
   }, [inputValue]);
