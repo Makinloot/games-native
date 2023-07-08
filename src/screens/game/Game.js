@@ -16,7 +16,12 @@ const Game = ({ route, navigation }) => {
   const scrollViewRef = useRef();
 
   const gameUrl = `https://api.rawg.io/api/games/${id}?key=${API_KEY}`;
-  const { data: game, refetch, isLoading } = useGet(gameUrl, "game");
+  const {
+    data: game,
+    refetch,
+    isLoading,
+    isFetching,
+  } = useGet(gameUrl, "game");
 
   const scrollToTop = () =>
     scrollViewRef?.current?.scrollTo({ y: 0, animated: true });
@@ -27,7 +32,7 @@ const Game = ({ route, navigation }) => {
     scrollToTop();
   }, [id]);
 
-  if (isLoading) return <GameSkeleton />;
+  if (isLoading || isFetching) return <GameSkeleton />;
   if (game) {
     const {
       background_image,

@@ -1,12 +1,5 @@
 import { StatusBar as ExpoBar } from "expo-status-bar";
-import {
-  Text,
-  View,
-  StatusBar,
-  Platform,
-  SafeAreaView,
-  FlatList,
-} from "react-native";
+import { StatusBar, Platform, SafeAreaView } from "react-native";
 import { useFonts } from "expo-font";
 import Home from "./src/screens/Home";
 import Navbar from "./src/components/Navbar";
@@ -16,6 +9,7 @@ import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import List from "./src/screens/List";
 const queryClient = new QueryClient();
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -53,6 +47,7 @@ export default function App() {
               component={Game}
               options={({ route }) => ({ title: `Game ${route.params.id}` })}
             />
+            <Stack.Screen name="List" component={List} />
           </Stack.Navigator>
           {/* <Home /> */}
           {/* <Browse /> */}

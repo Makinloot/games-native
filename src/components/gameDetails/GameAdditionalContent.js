@@ -11,18 +11,20 @@ const GameAdditionalContent = ({ id }) => {
     refetch();
   }, [id]);
 
-  return (
-    <View>
-      <Text className="my-2 font-robotoBold uppercase text-white">
-        content for this game
-      </Text>
-      {data?.results?.map((item) => (
-        <View className="mt-1 bg-[#3A434B] p-1" key={item.id}>
-          <Text className="font-robotoLight text-white">{item.name}</Text>
-        </View>
-      ))}
-    </View>
-  );
+  if (data?.results?.length > 0) {
+    return (
+      <View>
+        <Text className="my-2 font-robotoBold uppercase text-white">
+          content for this game
+        </Text>
+        {data.results.map((item) => (
+          <View className="mt-1 bg-[#3A434B] p-1" key={item.id}>
+            <Text className="font-robotoLight text-white">{item.name}</Text>
+          </View>
+        ))}
+      </View>
+    );
+  }
 };
 
 export default GameAdditionalContent;

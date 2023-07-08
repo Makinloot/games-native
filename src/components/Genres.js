@@ -22,7 +22,6 @@ const Genres = ({ navigation }) => {
     refetch();
   }, []);
 
-  // if (!isLoading) return <Text>LMAOO</Text>;
   return (
     <View className="relative my-4 bg-nightBlue p-1 pb-5">
       {/* list of genres */}
@@ -44,8 +43,16 @@ const Genres = ({ navigation }) => {
       />
 
       {/* see more btn */}
-      {isLoading && (
-        <TouchableOpacity className="absolute bottom-0 left-1 bg-[#445586] p-2">
+      {!isLoading && (
+        <TouchableOpacity
+          className="absolute bottom-0 left-1 bg-[#445586] p-2"
+          onPress={() =>
+            navigation.navigate("List", {
+              name: activeGenre.name,
+              slug: activeGenre.slug,
+            })
+          }
+        >
           <Text className="font-robotoLight text-sm text-white">
             see more{" "}
             <Text className="font-robotoBold">

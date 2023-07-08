@@ -1,4 +1,10 @@
-import { View, TextInput, TouchableOpacity, Keyboard } from "react-native";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Keyboard,
+  Button,
+} from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
@@ -9,7 +15,6 @@ const Search = ({ navigation }) => {
   const [active, setActive] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-
   useEffect(() => {
     if (inputValue.length > 3) {
       axios
@@ -18,6 +23,7 @@ const Search = ({ navigation }) => {
     } else setSearchResults([]);
   }, [inputValue]);
 
+  // TODO: on search navigate to results screen
   return (
     <View>
       <View className="relative h-11 bg-aquaBlue px-2 pr-8">

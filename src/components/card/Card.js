@@ -1,5 +1,5 @@
-import CardHorizontal from "./CardHorizontal";
-import CardVertical from "./CardVertical";
+import CardHorizontal from "./cardHorizontal/CardHorizontal";
+import CardVertical from "./cardVertical/CardVertical";
 
 const Card = ({
   background_image,

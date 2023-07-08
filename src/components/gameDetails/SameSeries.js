@@ -11,14 +11,14 @@ const SameSeries = ({ id, handleNavigation }) => {
     refetch();
   }, [id]);
 
-  if (data) {
+  if (data?.results?.length > 0) {
     return (
       <View>
         <Text className="my-2 mt-4 font-robotoBold uppercase text-white">
           games from same series
         </Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {data.results?.map((item, i) => (
+          {data.results.map((item, i) => (
             <TouchableOpacity
               onPress={() => handleNavigation(item.id)}
               className={i !== 0 && `ml-2`}

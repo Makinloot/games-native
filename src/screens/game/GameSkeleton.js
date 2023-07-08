@@ -3,7 +3,7 @@ import Search from "../../components/search/Search";
 import LinearGradientAnimation from "../../components/linearGradientAnimation/LinearGradientAnimation";
 const GameSkeleton = () => {
   return (
-    <View className="flex-1 p-2">
+    <View className="flex-1 bg-nightBlue p-2">
       <View>
         <Search />
       </View>

@@ -5,7 +5,7 @@ import { useGet } from "../../utils/useGet";
 import RowSkeleton from "./RowSkeleton";
 
 const Row = ({ title, url, useMap, navigate }) => {
-  const { data, refetch, isLoading } = useGet(url, title);
+  const { data, refetch, isLoading, isFetching } = useGet(url, title);
 
   // return list of Card using FlatList
   function renderFlatList(data) {
@@ -42,7 +42,7 @@ const Row = ({ title, url, useMap, navigate }) => {
     refetch();
   }, [url]);
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     if (useMap) return <RowSkeleton useMap />;
     else return <RowSkeleton />;
   }

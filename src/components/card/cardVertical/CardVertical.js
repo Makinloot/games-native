@@ -1,6 +1,6 @@
 import { View, Text, Image } from "react-native";
-import noImg from "../../../assets/no-img.png";
-import filterGamePlatforms from "../../utils/platforms";
+import noImg from "../../../../assets/no-img.png";
+import filterGamePlatforms from "../../../utils/platforms";
 
 const CardVertical = ({ background_image, name, platforms, released }) => {
   return (
@@ -18,7 +18,7 @@ const CardVertical = ({ background_image, name, platforms, released }) => {
       />
       <View className="w-full justify-between">
         <Text
-          className="font-robotoBold text-base text-white"
+          className="w-[60%] font-robotoBold text-base text-white"
           numberOfLines={1}
         >
           {name}

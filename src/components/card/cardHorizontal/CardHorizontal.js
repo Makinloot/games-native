@@ -1,5 +1,5 @@
 import { View, Text, Image } from "react-native";
-import noImg from "../../../assets/no-img.png";
+import noImg from "../../../../assets/no-img.png";
 
 const CardHorizontal = ({ background_image, name, genres }) => {
   return (
