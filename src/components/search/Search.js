@@ -11,6 +11,13 @@ import axios from "axios";
 import requests from "../../utils/requests";
 import SearchResults from "./SearchResults";
 
+const handleSubmit = (navigation, query) => {
+  navigation.navigate("List", {
+    list_url: `${requests.search}${query}`,
+    filtered_by: query,
+  });
+};
+
 const Search = ({ navigation }) => {
   const [active, setActive] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -34,6 +41,7 @@ const Search = ({ navigation }) => {
           autoCorrect={false}
           onFocus={() => setActive(true)}
           onChangeText={(e) => setInputValue(e)}
+          onSubmitEditing={() => handleSubmit(navigation, inputValue)}
           value={inputValue}
         />
         {inputValue.length <= 0 ? (

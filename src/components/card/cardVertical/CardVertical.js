@@ -25,7 +25,7 @@ const CardVertical = ({ background_image, name, platforms, released }) => {
         </Text>
         <View className="flex-row gap-1">{filterGamePlatforms(platforms)}</View>
         <Text className="font-robotoLight text-xs text-white">
-          {released.split("-").reverse().join(".")}
+          {released?.split("-").reverse().join(".")}
         </Text>
       </View>
     </View>

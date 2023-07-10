@@ -9,7 +9,7 @@ import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import List from "./src/screens/List";
+import List from "./src/screens/list/List";
 const queryClient = new QueryClient();
 export default function App() {
   const [fontsLoaded] = useFonts({

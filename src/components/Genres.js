@@ -48,8 +48,8 @@ const Genres = ({ navigation }) => {
           className="absolute bottom-0 left-1 bg-[#445586] p-2"
           onPress={() =>
             navigation.navigate("List", {
-              name: activeGenre.name,
-              slug: activeGenre.slug,
+              list_url: `${requests.genre}${activeGenre.slug}`,
+              filtered_by: activeGenre.name,
             })
           }
         >
