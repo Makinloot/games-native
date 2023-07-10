@@ -17,7 +17,9 @@ const DetailsText = ({
       >
         {title}
       </Text>
-      <Text className={`white font-roboto text-base capitalize ${textColor}`}>
+      <Text
+        className={`white font-roboto text-base capitalize ${textColor} w-[80%]`}
+      >
         {data ? data.map((creator) => creator.name).join(", ") : customText}
       </Text>
     </View>

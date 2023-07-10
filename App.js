@@ -7,9 +7,12 @@ import Browse from "./src/screens/Browse";
 import Game from "./src/screens/game/Game";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import List from "./src/screens/list/List";
+import Auth from "./src/components/auth/Auth";
+import Login from "./src/screens/auth/login/Login";
+import { ContextProvider } from "./src/utils/context/ContextProvider";
 const queryClient = new QueryClient();
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -31,31 +34,35 @@ export default function App() {
   // Show a loading screen or return null
   if (!fontsLoaded) return null;
   return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer theme={navigationTheme}>
-        <SafeAreaView
-          style={{
-            paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-          }}
-          className="relative flex-1 bg-nightBlue"
-        >
-          <Stack.Navigator>
-            {/* <Stack.Screen name="Home" component={Home} /> */}
-            <Stack.Screen name="Browse" component={Browse} />
-            <Stack.Screen
-              name="Game"
-              component={Game}
-              options={({ route }) => ({ title: `Game ${route.params.id}` })}
-            />
-            <Stack.Screen name="List" component={List} />
-          </Stack.Navigator>
-          {/* <Home /> */}
-          {/* <Browse /> */}
-          {/* <Game id={3328} /> */}
-          {!hideNavbar && <Navbar />}
-          <ExpoBar style="light" />
-        </SafeAreaView>
-      </NavigationContainer>
-    </QueryClientProvider>
+    <ContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer theme={navigationTheme}>
+          <SafeAreaView
+            style={{
+              paddingTop:
+                Platform.OS === "android" ? StatusBar.currentHeight : 0,
+            }}
+            className="relative flex-1 bg-nightBlue"
+          >
+            <Stack.Navigator>
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Browse" component={Browse} />
+              <Stack.Screen
+                name="Game"
+                component={Game}
+                options={({ route }) => ({ title: `Game ${route.params.id}` })}
+              />
+              <Stack.Screen name="List" component={List} />
+            </Stack.Navigator>
+            {/* <Home /> */}
+            {/* <Browse /> */}
+            {/* <Game id={3328} /> */}
+            {/* {!hideNavbar && <Navbar />} */}
+            <ExpoBar style="light" />
+          </SafeAreaView>
+        </NavigationContainer>
+      </QueryClientProvider>
+    </ContextProvider>
   );
 }

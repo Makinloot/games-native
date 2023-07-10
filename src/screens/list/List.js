@@ -4,6 +4,7 @@ import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import Card from "../../components/card/Card";
 import CardVerticalSkeleton from "../../components/card/cardVertical/CardVerticalSkeleton";
+import Search from "../../components/search/Search";
 
 // when scrollview reaches bottom return true
 const handleScroll = ({ nativeEvent }) => {
@@ -108,7 +109,7 @@ const List = ({ route, navigation }) => {
             )}
 
             {/* if no next page return no more results */}
-            {!hasNextPage && (
+            {!hasNextPage && data?.pages[0]?.results?.length >= 10 && (
               <View className="m-2 items-center justify-center">
                 <Text className="font-robotoBold text-lg text-white">
                   No more results !
