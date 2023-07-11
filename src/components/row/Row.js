@@ -3,10 +3,11 @@ import { useEffect } from "react";
 import Card from "../card/Card";
 import { useGet } from "../../utils/useGet";
 import RowSkeleton from "./RowSkeleton";
+import { useNavigation } from "@react-navigation/native";
 
 const Row = ({ title, url, useMap, navigate }) => {
+  const navigation = useNavigation();
   const { data, refetch, isLoading, isFetching } = useGet(url, title);
-
   // return list of Card using FlatList
   function renderFlatList(data) {
     return (
@@ -49,9 +50,23 @@ const Row = ({ title, url, useMap, navigate }) => {
   return (
     <View className="my-8">
       {title && (
-        <Text className="mb-4 font-robotoLight text-xl capitalize text-white">
-          {title}
-        </Text>
+        <View className="mb-4 flex-row items-center justify-between">
+          <Text className="font-robotoLight text-xl capitalize text-white">
+            {title}
+          </Text>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("List", {
+                list_url: url,
+                filtered_by: title,
+              })
+            }
+          >
+            <Text className="text-roboto mr-2 capitalize text-white/50">
+              see more
+            </Text>
+          </TouchableOpacity>
+        </View>
       )}
       <View>{useMap ? renderListWithMap(data) : renderFlatList(data)}</View>
     </View>

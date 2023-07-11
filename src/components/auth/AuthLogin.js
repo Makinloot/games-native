@@ -25,7 +25,8 @@ const AuthLogin = () => {
             values.password,
             setSubmitting,
             handleLogin,
-            setError
+            setError,
+            navigation
           );
         }}
       >

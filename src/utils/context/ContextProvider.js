@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 import { auth } from "../../../config/firebase";
 
@@ -25,21 +27,38 @@ const handleRegister = (email, password) => {
 };
 
 // handle reset password
-export const handleResetPsw = (email) => {
+const handleResetPsw = (email) => {
   return sendPasswordResetEmail(auth, email);
+};
+
+// handle sign out
+const handleSignout = () => {
+  return signOut(auth);
 };
 
 // context provider
 const ContextProvider = ({ children }) => {
+  const [currentUser, setCurrentUser] = useState();
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
+
+    return unsubscribe;
+  }, []);
   return (
     <Context.Provider
       value={{
         handleLogin,
         handleRegister,
         handleResetPsw,
+        currentUser,
+        handleSignout,
       }}
     >
-      {children}
+      {!loading && children}
     </Context.Provider>
   );
 };

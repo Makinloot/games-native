@@ -4,12 +4,14 @@ export const loginUser = async (
   password,
   setSubmitting,
   handleLogin,
-  setError
+  setError,
+  navigation
 ) => {
   try {
     await handleLogin(email, password);
     setError("");
     setSubmitting(false);
+    navigation.navigate("Home");
     console.log("user logged in");
   } catch (error) {
     console.log("error", error);
