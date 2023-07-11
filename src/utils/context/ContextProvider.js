@@ -1,5 +1,8 @@
 import React, { useContext } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "../../../config/firebase";
 
 // context
@@ -12,12 +15,7 @@ const useAppContext = () => {
 
 // handle login with email & password
 const handleLogin = (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password);
-};
-
-// test func
-const handleCurrentUser = () => {
-  return auth.currentUser;
+  return signInWithEmailAndPassword(auth, email, password);
 };
 
 // context provider
@@ -26,7 +24,6 @@ const ContextProvider = ({ children }) => {
     <Context.Provider
       value={{
         handleLogin,
-        handleCurrentUser,
       }}
     >
       {children}

@@ -1,38 +1,49 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import { useAppContext } from "../../utils/context/ContextProvider";
 import { Formik } from "formik";
-import * as Yup from "yup";
+import validationSchema from "../../utils/inputValidationSchema";
+import { AntDesign } from "@expo/vector-icons";
 import InputField from "../InputField";
+import AuthButton from "./AuthButton";
+import SpinAnimation from "../SpinAnimation";
+import { useState } from "react";
 
 const AuthLogin = () => {
   const { handleLogin } = useAppContext();
+  const [error, setError] = useState("");
 
-  const handleSubmit = async (email, password) => {
+  const handleSubmit = async (email, password, setSubmitting) => {
     try {
       await handleLogin(email, password);
+      setError("");
+      setSubmitting(false);
       console.log("user logged in");
     } catch (error) {
       console.log("error", error);
+      if (error.code === "auth/user-not-found") setError("User not found.");
+      else if (error.code === "auth/wrong-password")
+        setError("Incorrect password.");
+      else setError("Something went wrong, please try again");
+      setSubmitting(false);
     }
   };
 
-  const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Enter a valid email")
-      .required("Email is required"),
-    password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
-  });
-
   return (
-    <View className="w-[240px] items-center">
+    <View className="w-full max-w-[340px] items-center">
+      <Text className="mb-8 self-start font-roboto text-4xl text-white">
+        Log in to Whistle
+      </Text>
+
+      <AuthButton
+        icon={<AntDesign name="google" color="white" size={28} />}
+        text="continue with google"
+        bgColor="bg-red-500 mb-5"
+      />
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
-        onSubmit={(values, actions) => {
-          console.log(actions);
-          handleSubmit(values.email, values.password);
+        onSubmit={(values, { setSubmitting }) => {
+          handleSubmit(values.email, values.password, setSubmitting);
         }}
       >
         {({
@@ -42,37 +53,42 @@ const AuthLogin = () => {
           handleBlur,
           touched,
           errors,
+          isSubmitting,
         }) => (
           <>
-            <View className="my-2 w-full rounded-md border border-white px-2 py-1">
-              <InputField
-                placeholder="Email"
-                handleChange={handleChange("email")}
-                value={values.email}
-                keyboardType="email-address"
-                handleBlur={handleBlur("email")}
-              />
-              {touched.email && errors.email && (
-                <Text className="text-white">{errors.email}</Text>
-              )}
-            </View>
-            <View className="my-2 w-full rounded-md border border-white px-2 py-1">
-              <InputField
-                placeholder="Password"
-                handleChange={handleChange("password")}
-                value={values.password}
-                secureText
-              />
-              {touched.password && errors.password && (
-                <Text className="text-white">{errors.password}</Text>
-              )}
-            </View>
-            <TouchableOpacity
-              className="self-end rounded-md bg-aquaBlue px-5 py-2"
-              onPress={handleSubmit}
-            >
-              <Text className="font-roboto capitalize text-white">login</Text>
-            </TouchableOpacity>
+            {isSubmitting && <SpinAnimation iconSize={28} />}
+            {!isSubmitting && error && (
+              <View className="w-full bg-red-400/60 p-2">
+                <Text className="text-center font-robotoBold text-white">
+                  {error}
+                </Text>
+              </View>
+            )}
+            <InputField
+              placeholder="Email"
+              handleChange={handleChange("email")}
+              value={values.email}
+              keyboardType="email-address"
+              handleBlur={handleBlur("email")}
+              error={touched.email && errors.email && errors.email}
+              label="email address"
+            />
+
+            <InputField
+              placeholder="Password"
+              handleChange={handleChange("password")}
+              value={values.password}
+              secureText
+              handleBlur={handleBlur("password")}
+              error={touched.password && errors.password && errors.password}
+              label="password"
+            />
+
+            <AuthButton
+              text="login"
+              bgColor="bg-lightBlue my-2"
+              handleSubmit={handleSubmit}
+            />
           </>
         )}
       </Formik>
