@@ -1,4 +1,6 @@
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { Entypo } from "@expo/vector-icons";
 
 const InputField = ({
   label,
@@ -10,6 +12,8 @@ const InputField = ({
   handleBlur,
   error,
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <View className="my-2 w-full">
       <Text
@@ -19,16 +23,31 @@ const InputField = ({
       >
         {error ? error : label}
       </Text>
-      <TextInput
-        className="my-1 w-full items-center rounded-[4px] border border-white px-3 py-2 font-roboto text-base text-white"
-        placeholderTextColor="white"
-        placeholder={placeholder}
-        onChangeText={handleChange}
-        value={value}
-        keyboardType={keyboardType && keyboardType}
-        secureTextEntry={secureText && true}
-        onBlur={handleBlur}
-      />
+      <View className="relative">
+        <TextInput
+          className="my-1 w-full items-center rounded-[4px] border border-white px-3 py-2 font-roboto text-base text-white"
+          placeholderTextColor="white"
+          placeholder={placeholder}
+          onChangeText={handleChange}
+          value={value}
+          keyboardType={keyboardType && keyboardType}
+          secureTextEntry={secureText && !showPassword && true}
+          onBlur={handleBlur}
+        />
+        {/* if password input add show and hide psw button */}
+        {secureText && (
+          <TouchableOpacity
+            className="absolute right-3 top-3"
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? (
+              <Entypo name="eye-with-line" color="white" size={28} />
+            ) : (
+              <Entypo name="eye" color="white" size={28} />
+            )}
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 };

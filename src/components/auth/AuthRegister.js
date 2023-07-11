@@ -1,30 +1,30 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { useAppContext } from "../../utils/context/ContextProvider";
 import { Formik } from "formik";
-import { loginValidationSchema } from "../../utils/inputValidationSchema";
+import { registerValidationSchema } from "../../utils/inputValidationSchema";
 import InputField from "../InputField";
 import AuthButton from "./AuthButton";
 import SpinAnimation from "../SpinAnimation";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { loginUser } from "../../utils/submitFunctions";
+import { registerUser } from "../../utils/submitFunctions";
 
-const AuthLogin = () => {
-  const { handleLogin } = useAppContext();
+const AuthRegister = () => {
+  const { handleRegister } = useAppContext();
   const [error, setError] = useState("");
-  const navigation = useNavigation();
+  const navigation = useNavigation("Login");
 
   return (
     <>
       <Formik
-        initialValues={{ email: "", password: "" }}
-        validationSchema={loginValidationSchema}
+        initialValues={{ email: "", password: "", confirmPassword: "" }}
+        validationSchema={registerValidationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          loginUser(
+          registerUser(
             values.email,
             values.password,
             setSubmitting,
-            handleLogin,
+            handleRegister,
             setError
           );
         }}
@@ -68,12 +68,26 @@ const AuthLogin = () => {
               label="password"
             />
 
+            <InputField
+              placeholder="Confirm password"
+              handleChange={handleChange("confirmPassword")}
+              value={values.confirmPassword}
+              secureText
+              handleBlur={handleBlur("confirmPassword")}
+              error={
+                touched.confirmPassword &&
+                errors.confirmPassword &&
+                errors.confirmPassword
+              }
+              label="confirm password"
+            />
+
             {/* display spin animation while submitting */}
             {isSubmitting ? (
               <SpinAnimation iconSize={28} />
             ) : (
               <AuthButton
-                text="login"
+                text="register"
                 bgColor="bg-lightBlue my-2"
                 handleSubmit={handleSubmit}
               />
@@ -83,28 +97,18 @@ const AuthLogin = () => {
       </Formik>
 
       {/* links */}
-      <View className="pb-10">
-        <TouchableOpacity
-          className="mb-3 mt-5"
-          onPress={() => navigation.navigate("ResetPsw")}
-        >
-          <Text className="font-roboto text-sm text-white underline">
-            Forgot your password?
+      <View className="my-3 pb-10">
+        <Text className="text-center font-roboto text-white/50">
+          Already have an account?
+        </Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <Text className="text-center font-roboto text-white underline">
+            Sign in to Whistle
           </Text>
         </TouchableOpacity>
-        <View>
-          <Text className="text-center font-roboto text-white/50">
-            Don't have an account?
-          </Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-            <Text className="text-center font-roboto text-white underline">
-              Sign up for Whistle
-            </Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </>
   );
 };
 
-export default AuthLogin;
+export default AuthRegister;

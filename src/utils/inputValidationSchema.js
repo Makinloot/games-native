@@ -1,12 +1,28 @@
 import * as Yup from "yup";
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Enter a valid email")
-    .required("Email is required"),
-  password: Yup.string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
+// login form validations
+export const loginValidationSchema = Yup.object().shape({
+  email: Yup.string().email("Enter a valid email").required("Required field"),
+  password: Yup.string().required("Required field"),
 });
 
-export default validationSchema;
+// register form validations
+export const registerValidationSchema = Yup.object().shape({
+  email: Yup.string().email("Enter a valid email").required("Required field"),
+  password: Yup.string()
+    .min(8, "Password must be at least 8 characters")
+    .max(20, "Password must be at most 20 characters")
+    .matches(
+      /^(?=.*[A-Z])(?=.*\d).*$/,
+      "Password must have at least 1 uppercase letter and 1 number"
+    )
+    .required("Required field"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Required field"),
+});
+
+// reset psw schema
+export const resetPswValidationSchema = Yup.object().shape({
+  email: Yup.string().email("Enter a valid email").required("Required field"),
+});

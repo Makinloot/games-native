@@ -1,31 +1,31 @@
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { useAppContext } from "../../utils/context/ContextProvider";
+import { useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Formik } from "formik";
-import { loginValidationSchema } from "../../utils/inputValidationSchema";
+import { useAppContext } from "../../utils/context/ContextProvider";
 import InputField from "../InputField";
+import { resetPswValidationSchema } from "../../utils/inputValidationSchema";
 import AuthButton from "./AuthButton";
 import SpinAnimation from "../SpinAnimation";
-import { useState } from "react";
+import { resetPassword } from "../../utils/submitFunctions";
 import { useNavigation } from "@react-navigation/native";
-import { loginUser } from "../../utils/submitFunctions";
 
-const AuthLogin = () => {
-  const { handleLogin } = useAppContext();
+const AuthReset = () => {
+  const { handleResetPsw } = useAppContext();
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigation = useNavigation();
-
   return (
     <>
       <Formik
-        initialValues={{ email: "", password: "" }}
-        validationSchema={loginValidationSchema}
+        initialValues={{ email: "" }}
+        validationSchema={resetPswValidationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          loginUser(
+          resetPassword(
             values.email,
-            values.password,
+            handleResetPsw,
             setSubmitting,
-            handleLogin,
-            setError
+            setError,
+            setSuccess
           );
         }}
       >
@@ -39,7 +39,7 @@ const AuthLogin = () => {
           isSubmitting,
         }) => (
           <>
-            {/* display error */}
+            {/* display error  */}
             {!isSubmitting && error && (
               <View className="w-full bg-red-400/60 p-2">
                 <Text className="text-center font-robotoBold text-white">
@@ -47,33 +47,28 @@ const AuthLogin = () => {
                 </Text>
               </View>
             )}
-
+            {/* display success */}
+            {!isSubmitting && success && (
+              <View className="w-full bg-green-400/60 p-2">
+                <Text className="text-center font-robotoBold text-white">
+                  {success}
+                </Text>
+              </View>
+            )}
             <InputField
+              label="email"
               placeholder="Email"
               handleChange={handleChange("email")}
-              value={values.email}
-              keyboardType="email-address"
               handleBlur={handleBlur("email")}
               error={touched.email && errors.email && errors.email}
-              label="email address"
+              value={values.email}
             />
-
-            <InputField
-              placeholder="Password"
-              handleChange={handleChange("password")}
-              value={values.password}
-              secureText
-              handleBlur={handleBlur("password")}
-              error={touched.password && errors.password && errors.password}
-              label="password"
-            />
-
             {/* display spin animation while submitting */}
             {isSubmitting ? (
               <SpinAnimation iconSize={28} />
             ) : (
               <AuthButton
-                text="login"
+                text="reset password"
                 bgColor="bg-lightBlue my-2"
                 handleSubmit={handleSubmit}
               />
@@ -81,30 +76,27 @@ const AuthLogin = () => {
           </>
         )}
       </Formik>
-
       {/* links */}
-      <View className="pb-10">
+      <View className="flex-row pb-10">
         <TouchableOpacity
-          className="mb-3 mt-5"
-          onPress={() => navigation.navigate("ResetPsw")}
+          className="my-2 mr-2"
+          onPress={() => navigation.navigate("Login")}
         >
           <Text className="font-roboto text-sm text-white underline">
-            Forgot your password?
+            Sign in
           </Text>
         </TouchableOpacity>
-        <View>
-          <Text className="text-center font-roboto text-white/50">
-            Don't have an account?
+        <TouchableOpacity
+          className="my-2 ml-2"
+          onPress={() => navigation.navigate("Register")}
+        >
+          <Text className="font-roboto text-sm text-white underline">
+            Sign up
           </Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-            <Text className="text-center font-roboto text-white underline">
-              Sign up for Whistle
-            </Text>
-          </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
       </View>
     </>
   );
 };
 
-export default AuthLogin;
+export default AuthReset;

@@ -1,12 +1,11 @@
 import { View } from "react-native";
 import Auth from "../../../components/auth/Auth";
-
-const Login = () => {
+const ResetPsw = () => {
   return (
     <View className="flex-1 items-center justify-center bg-nightBlue p-2">
-      <Auth login />
+      <Auth reset />
     </View>
   );
 };
 
-export default Login;
+export default ResetPsw;

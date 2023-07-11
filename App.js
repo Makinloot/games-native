@@ -13,6 +13,8 @@ import List from "./src/screens/list/List";
 import Auth from "./src/components/auth/Auth";
 import Login from "./src/screens/auth/login/Login";
 import { ContextProvider } from "./src/utils/context/ContextProvider";
+import Register from "./src/screens/auth/register/Register";
+import ResetPsw from "./src/screens/auth/resetPsw/ResetPsw";
 const queryClient = new QueryClient();
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -45,15 +47,17 @@ export default function App() {
             className="relative flex-1 bg-nightBlue"
           >
             <Stack.Navigator>
-              <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="Home" component={Home} />
+              {/* <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Browse" component={Browse} />
               <Stack.Screen
                 name="Game"
                 component={Game}
                 options={({ route }) => ({ title: `Game ${route.params.id}` })}
               />
-              <Stack.Screen name="List" component={List} />
+              <Stack.Screen name="List" component={List} /> */}
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Register" component={Register} />
+              <Stack.Screen name="ResetPsw" component={ResetPsw} />
             </Stack.Navigator>
             {/* <Home /> */}
             {/* <Browse /> */}
