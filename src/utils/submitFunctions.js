@@ -12,7 +12,6 @@ export const loginUser = async (
     setError("");
     setSubmitting(false);
     navigation.navigate("Home");
-    console.log("user logged in");
   } catch (error) {
     console.log("error", error);
     if (error.code === "auth/user-not-found") setError("User not found.");
@@ -25,17 +24,23 @@ export const loginUser = async (
 
 // sign up user, handle error & loading state
 export const registerUser = async (
-  email,
-  password,
+  values,
   setSubmitting,
   handleRegister,
-  setError
+  setError,
+  navigation,
+  saveUser
 ) => {
   try {
+    const { email, name, password } = values;
     await handleRegister(email, password);
     setError("");
     setSubmitting(false);
-    console.log("user registered");
+    saveUser({
+      email: email,
+      name: name,
+    });
+    navigation.navigate("Home");
   } catch (error) {
     console.log("error", error);
     if (error.code === "auth/email-already-in-use")

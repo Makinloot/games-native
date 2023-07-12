@@ -10,22 +10,28 @@ import { useNavigation } from "@react-navigation/native";
 import { registerUser } from "../../utils/submitFunctions";
 
 const AuthRegister = () => {
-  const { handleRegister } = useAppContext();
+  const { handleRegister, saveUser } = useAppContext();
   const [error, setError] = useState("");
   const navigation = useNavigation("Login");
 
   return (
     <>
       <Formik
-        initialValues={{ email: "", password: "", confirmPassword: "" }}
+        initialValues={{
+          email: "",
+          name: "",
+          password: "",
+          confirmPassword: "",
+        }}
         validationSchema={registerValidationSchema}
         onSubmit={(values, { setSubmitting }) => {
           registerUser(
-            values.email,
-            values.password,
+            values,
             setSubmitting,
             handleRegister,
-            setError
+            setError,
+            navigation,
+            saveUser
           );
         }}
       >
@@ -47,6 +53,15 @@ const AuthRegister = () => {
                 </Text>
               </View>
             )}
+
+            <InputField
+              placeholder="Name"
+              handleChange={handleChange("name")}
+              value={values.name}
+              handleBlur={handleBlur("name")}
+              error={touched.name && errors.name && errors.name}
+              label="name"
+            />
 
             <InputField
               placeholder="Email"

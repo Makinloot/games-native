@@ -63,13 +63,16 @@ const List = ({ route, navigation }) => {
   // TODO: ADD FUNCTIONALITY FOR LIST SCREEN TO FILTER GIVEN DATA IN VARIOUS WAYS
   return (
     <View className="flex-1 bg-nightBlue p-2">
+      <View>
+        <Search navigation={navigation} />
+      </View>
       <View className="my-2 flex-row">
         <Text className="font-robotoBold text-lg text-white">
           Filtered by
           <Text className="uppercase text-lightBlue"> {filtered_by}</Text>
         </Text>
       </View>
-      <View className="mb-9 w-full">
+      <View className="h-full w-full pb-20">
         {data?.pages[0]?.results?.length <= 0 ? (
           <View className="h-screen max-h-80 items-center justify-center">
             <Text className="font-robotoBold text-lg text-white">

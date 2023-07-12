@@ -47,13 +47,13 @@ const Game = ({ route, navigation }) => {
     } = game;
 
     return (
-      <View className="flex-1 bg-nightBlue p-2">
+      <View className="flex-1 bg-nightBlue p-2 pb-0">
         <View>
           <Search navigation={navigation} />
         </View>
         <ScrollView
           ref={scrollViewRef}
-          className="my-5"
+          className="my-5 mb-0"
           showsVerticalScrollIndicator={false}
         >
           {/* game img, name, developers, publishers, released & description */}

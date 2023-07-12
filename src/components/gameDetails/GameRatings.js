@@ -2,7 +2,6 @@ import { View, Text } from "react-native";
 import DetailsText from "../DetailsText";
 
 const GameRatings = ({ ratings, ratings_count }) => {
-  console.log(ratings, ratings_count);
   if (ratings.length <= 0)
     return (
       <View>

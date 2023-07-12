@@ -22,7 +22,7 @@ const Auth = ({ login, reset }) => {
         </Text>
 
         {/* auth with gmail or facebook buttons */}
-        {!reset && (
+        {/* {!reset && (
           <>
             <AuthButton
               icon={<AntDesign name="google" color="white" size={28} />}
@@ -37,7 +37,7 @@ const Auth = ({ login, reset }) => {
               bgColor="bg-blue-500 mb-5"
             />
           </>
-        )}
+        )} */}
 
         {/* divider */}
         <View className="my-4 h-[1px] w-full bg-white/30" />

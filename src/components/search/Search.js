@@ -39,7 +39,10 @@ const Search = ({ navigation }) => {
             autoCorrect={false}
             onFocus={() => setActive(true)}
             onChangeText={(e) => setInputValue(e)}
-            onSubmitEditing={() => handleSubmit(navigation, inputValue)}
+            onSubmitEditing={() => {
+              handleSubmit(navigation, inputValue);
+              setActive(false);
+            }}
             value={inputValue}
           />
           {inputValue.length <= 0 ? (

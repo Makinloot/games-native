@@ -4,7 +4,6 @@ import Row from "../components/row/Row";
 
 import requests from "../utils/requests";
 import Genres from "../components/Genres";
-import Navbar from "../components/Navbar";
 
 const Browse = ({ navigation }) => {
   const handleNavigation = (id) => navigation.navigate("Game", { id });
@@ -14,7 +13,7 @@ const Browse = ({ navigation }) => {
       <View className="pb-2">
         <Search navigation={navigation} />
       </View>
-      <View className="relative h-[90%] pb-16">
+      <View className="relative h-full pb-24">
         <ScrollView
           showsVerticalScrollIndicator={false}
           className="absolute inset-0 h-full flex-grow"
@@ -43,7 +42,6 @@ const Browse = ({ navigation }) => {
           <Genres navigation={navigation} />
         </ScrollView>
       </View>
-      {/* <Navbar active="browse" /> */}
     </View>
   );
 };

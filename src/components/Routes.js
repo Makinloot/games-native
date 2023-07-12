@@ -11,7 +11,6 @@ import Browse from "../screens/Browse";
 import Game from "../screens/game/Game";
 import List from "../screens/list/List";
 import Navbar from "./Navbar";
-import { View } from "react-native";
 const Routes = () => {
   const Stack = createNativeStackNavigator();
   const navigation = useNavigation();
@@ -23,7 +22,6 @@ const Routes = () => {
   }, [currentUser]);
 
   return (
-    // <View>
     <>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
@@ -38,9 +36,8 @@ const Routes = () => {
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="ResetPsw" component={ResetPsw} />
       </Stack.Navigator>
-      <Navbar />
+      {currentUser && <Navbar />}
     </>
-    // </View>
   );
 };
 

@@ -3,10 +3,10 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
-  onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { auth } from "../../../config/firebase";
+import { auth, db, dbRefUsers } from "../../../config/firebase";
+import { push, ref } from "firebase/database";
 
 // context
 const Context = React.createContext(null);
@@ -36,6 +36,11 @@ const handleSignout = () => {
   return signOut(auth);
 };
 
+// push user in database
+const saveUser = (value) => {
+  push(dbRefUsers, value);
+};
+
 // context provider
 const ContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
@@ -56,6 +61,7 @@ const ContextProvider = ({ children }) => {
         handleResetPsw,
         currentUser,
         handleSignout,
+        saveUser,
       }}
     >
       {!loading && children}

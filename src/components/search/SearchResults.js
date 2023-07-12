@@ -3,9 +3,7 @@ import noImg from "../../../assets/no-img.png";
 const SearchResults = ({ searchResults, navigation, setInputValue }) => {
   const handleNavigation = (id) => navigation.navigate("Game", { id });
   return (
-    <ScrollView
-      className={`${searchResults.length > 0 && "h-auto max-h-72"} mt-2`}
-    >
+    <ScrollView className={searchResults.length > 0 && "mt-2 h-auto max-h-72"}>
       {searchResults
         .map((item, i) => (
           <TouchableOpacity
