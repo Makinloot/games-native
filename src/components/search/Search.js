@@ -64,8 +64,7 @@ const Search = ({ navigation }) => {
         </View>
         <View className="mx-2 h-[60%] w-[1px] bg-white/40" />
         <View className="p-1">
-          {/* <UserProfile img /> */}
-          <UserProfile />
+          <UserProfile stylesImage="h-9 w-9" />
         </View>
       </View>
       {active && (

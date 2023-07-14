@@ -1,7 +1,7 @@
 import { View, Image, TouchableOpacity, ScrollView } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { Video } from "expo-av";
-import { useGet } from "../utils/useGet";
+import { useGet } from "../utils/hooks/useGet";
 import { API_KEY } from "@env";
 
 const ThumbnailSlider = ({ id }) => {

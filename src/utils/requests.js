@@ -16,7 +16,7 @@ const futureDateStr = futureDate.toISOString().slice(0, 10);
 const upcomingUrl = `https://api.rawg.io/api/games?key=${API_KEY}&ordering=-added&dates=${currentDateStr},${futureDateStr}&page=1&page_size=10`;
 
 // best of 2023
-const yearlyUrl = `https://api.rawg.io/api/games?key=${API_KEY}&dates=2023-01-01,2023-12-31&ordering=-rating&page=1&page_size=10`;
+const yearlyUrl = `https://api.rawg.io/api/games?key=${API_KEY}&dates=2023-01-01,2023-12-31&ordering=-rating&page_size=10`;
 
 export default requests = {
   weekly: weeklyUrl,

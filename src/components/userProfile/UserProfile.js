@@ -1,28 +1,21 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import noImg from "../../../assets/no-img.png";
-import { useAppContext } from "../../utils/context/ContextProvider";
-import { onValue } from "firebase/database";
-import { useEffect, useState } from "react";
-import { dbRefUsers } from "../../../config/firebase";
 
-const UserProfile = () => {
-  // const { currentUser } = useAppContext();
-  const [user, setUser] = useState("");
-  // const
+import { useNavigation } from "@react-navigation/native";
+import defaultUser from "../../../assets/user.png";
+import { getUser } from "../../utils/hooks/useDb";
 
-  useEffect(() => {
-    onValue(dbRefUsers, (snapshot) => {
-      snapshot.forEach((item) => {
-        const { name } = item.val();
-        setUser(name);
-      });
-    });
-  }, []);
+const UserProfile = ({ stylesContainer, stylesImage }) => {
+  const { navigate } = useNavigation();
+
+  const { email } = getUser();
 
   return (
-    <View>
-      <TouchableOpacity className="h-full w-[44px] items-center justify-center bg-slate-500">
-        {/* {currentUser?.photoURL ? (
+    <TouchableOpacity
+      className={`${stylesContainer} items-center justify-center bg-lightBlue`}
+      onPress={() => navigate("Account")}
+      activeOpacity={1}
+    >
+      {/* {currentUser?.photoURL ? (
           <Image
             source={{ uri: currentUser.photoURL }}
             className="h-full w-full"
@@ -33,12 +26,13 @@ const UserProfile = () => {
             {currentUser.email.split("")[0]}
           </Text>
         )} */}
-        <Text className="font-robotoLight text-4xl uppercase text-white">
-          {user.split("")[0]}
-        </Text>
-      </TouchableOpacity>
-    </View>
+      <Image source={defaultUser} className={stylesImage} />
+    </TouchableOpacity>
   );
+};
+
+UserProfile.defaultProps = {
+  stylesImage: "h-20 w-20",
 };
 
 export default UserProfile;

@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import { useGet } from "../../utils/useGet";
+import { useGet } from "../../utils/hooks/useGet";
 import { useEffect } from "react";
 import { API_KEY } from "@env";
 

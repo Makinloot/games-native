@@ -11,6 +11,9 @@ import Browse from "../screens/Browse";
 import Game from "../screens/game/Game";
 import List from "../screens/list/List";
 import Navbar from "./Navbar";
+import Library from "../screens/Library";
+import Account from "../screens/Account";
+
 const Routes = () => {
   const Stack = createNativeStackNavigator();
   const navigation = useNavigation();
@@ -35,6 +38,8 @@ const Routes = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="ResetPsw" component={ResetPsw} />
+        <Stack.Screen name="Library" component={Library} />
+        <Stack.Screen name="Account" component={Account} />
       </Stack.Navigator>
       {currentUser && <Navbar />}
     </>

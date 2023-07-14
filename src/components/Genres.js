@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { useGet } from "../utils/useGet";
+import { useGet } from "../utils/hooks/useGet";
 import requests from "../utils/requests";
 import Row from "./row/Row";
 import TagsSlider from "./tagsSlider/TagsSlider";
@@ -48,7 +48,7 @@ const Genres = ({ navigation }) => {
           className="absolute bottom-0 left-1 bg-[#445586] p-2"
           onPress={() =>
             navigation.navigate("List", {
-              list_url: `${requests.genre}${activeGenre.slug}`,
+              list_url: `${requests.genre}${activeGenre.slug}&page_size=10`,
               filtered_by: activeGenre.name,
             })
           }

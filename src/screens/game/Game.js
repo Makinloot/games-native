@@ -1,7 +1,7 @@
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import { useEffect, useRef } from "react";
 import { API_KEY } from "@env";
-import { useGet } from "../../utils/useGet";
+import { useGet } from "../../utils/hooks/useGet";
 import Search from "../../components/search/Search";
 import ThumbnailSlider from "../../components/ThumbnailSlider";
 import GameAdditionalContent from "../../components/gameDetails/GameAdditionalContent";

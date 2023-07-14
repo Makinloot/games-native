@@ -1,7 +1,7 @@
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useEffect } from "react";
 import Card from "../card/Card";
-import { useGet } from "../../utils/useGet";
+import { useGet } from "../../utils/hooks/useGet";
 import RowSkeleton from "./RowSkeleton";
 import { useNavigation } from "@react-navigation/native";
 

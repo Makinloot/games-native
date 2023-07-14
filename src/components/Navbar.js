@@ -21,7 +21,7 @@ const Navbar = () => {
       </TouchableOpacity>
       <TouchableOpacity
         className="h-full flex-1 items-center justify-center"
-        onPress={() => handleNavigation("Profile")}
+        onPress={() => handleNavigation("Library")}
       >
         <Ionicons name="library" color="white" size={28} />
       </TouchableOpacity>

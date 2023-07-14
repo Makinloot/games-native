@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import { API_KEY } from "@env";
 import { useEffect } from "react";
-import { useGet } from "../../utils/useGet";
+import { useGet } from "../../utils/hooks/useGet";
 
 const SameSeries = ({ id, handleNavigation }) => {
   const url = `https://api.rawg.io/api/games/${id}/game-series?key=${API_KEY}&page_size=10`;
