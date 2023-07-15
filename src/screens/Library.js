@@ -12,8 +12,6 @@ const Library = () => {
   const { currentUser } = useAppContext();
   const likes = getLikedItems(currentUser.uid);
 
-  console.log("YAY", likes);
-
   return (
     <View className="flex-1 bg-nightBlue p-2">
       <View className="flex-row">
@@ -30,7 +28,7 @@ const Library = () => {
       {/* TODO: retrieve liked items instead of yearlyUrl data */}
       <View className="flex-1">
         <PaginatedList
-          api_url={`${requests.games_collection}${likes}`}
+          api_url={likes.length > 0 && `${requests.games_collection}${likes}`}
           list_name="likes"
         />
       </View>

@@ -34,17 +34,7 @@ const Game = ({ route, navigation }) => {
 
   if (isLoading || isFetching) return <GameSkeleton />;
   if (game) {
-    const {
-      background_image,
-      name,
-      developers,
-      publishers,
-      released,
-      description_raw,
-      tags,
-      ratings,
-      ratings_count,
-    } = game;
+    const { tags, ratings, ratings_count } = game;
 
     return (
       <View className="flex-1 bg-nightBlue p-2 pb-0">
@@ -57,14 +47,7 @@ const Game = ({ route, navigation }) => {
           showsVerticalScrollIndicator={false}
         >
           {/* game img, name, developers, publishers, released & description */}
-          <GameDetails
-            background_image={background_image}
-            description_raw={description_raw}
-            developers={developers}
-            publishers={publishers}
-            released={released}
-            name={name}
-          />
+          <GameDetails {...game} />
 
           {/* game tags */}
           {tags?.length > 1 && <GameTags tags={tags} />}

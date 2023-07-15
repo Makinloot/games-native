@@ -59,9 +59,9 @@ const ContextProvider = ({ children }) => {
 
     if (itemExists) {
       // Item already exists, remove it from the database
-      const itemKey = Object.keys(likedCollectionSnapshot.val()).find(
-        (key) => likedCollectionSnapshot.val()[key] === value
-      );
+      const itemKey = Object.keys(likedCollectionSnapshot.val()).find((key) => {
+        return likedCollectionSnapshot.val()[key] === value;
+      });
       if (itemKey) {
         const itemRef = child(userLikedCollectionRef, itemKey);
         await remove(itemRef);

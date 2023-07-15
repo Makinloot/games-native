@@ -5,14 +5,10 @@ import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import Card from "./card/Card";
-import { useAppContext } from "../utils/context/ContextProvider";
-import { AntDesign } from "@expo/vector-icons";
 
 const PaginatedList = ({ api_url, list_name }) => {
   const scrollViewRef = useRef(null);
   const queryClient = useQueryClient();
-
-  const { likedItems } = useAppContext();
 
   // navigation
   const navigation = useNavigation();
@@ -83,12 +79,6 @@ const PaginatedList = ({ api_url, list_name }) => {
                 onPress={() => handleNavigation(game.id)}
               >
                 <Card {...game} vertical />
-              </TouchableOpacity>
-              <TouchableOpacity
-                className="absolute right-2 top-1/3"
-                onPress={() => likedItems(game.id)}
-              >
-                <AntDesign name="hearto" color="white" size={28} />
               </TouchableOpacity>
             </View>
           ))}

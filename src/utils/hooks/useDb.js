@@ -15,9 +15,11 @@ export function getUser(email) {
   return user;
 }
 
+// return array of liked items ids
 export function getLikedItems(id) {
-  const [likes, setLikes] = useState({});
+  const [likes, setLikes] = useState([]);
   const likedDbRef = ref(db, `liked`);
+  let ids = [];
 
   useEffect(() => {
     onValue(likedDbRef, (snapshot) => {
@@ -25,7 +27,7 @@ export function getLikedItems(id) {
         const likedListKey = item.key;
         if (likedListKey === id) {
           const keys = Object.keys(item.val());
-          const idsFromObj = keys.map((id) => item.val()[id]).join(", ");
+          const idsFromObj = keys.map((id) => item.val()[id]);
           setLikes(idsFromObj);
         }
       });
