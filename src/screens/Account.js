@@ -4,9 +4,11 @@ import { getUser } from "../utils/hooks/useDb";
 import { Ionicons } from "@expo/vector-icons";
 
 import "firebase/database";
+import { useAppContext } from "../utils/context/ContextProvider";
 
 const Account = () => {
-  const { name } = getUser();
+  const { currentUser } = useAppContext();
+  const { name } = getUser(currentUser.email);
 
   return (
     <View className="flex-1 bg-nightBlue p-2">

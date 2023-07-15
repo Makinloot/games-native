@@ -18,7 +18,7 @@ const Browse = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
           className="absolute inset-0 h-full flex-grow"
         >
-          <View>
+          <View className="flex-1">
             <Row
               title="best of the week"
               url={requests.weekly}

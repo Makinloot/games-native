@@ -24,7 +24,7 @@ const Routes = () => {
     if (!currentUser) navigation.navigate("Login");
   }, [currentUser]);
 
-  return (
+  return currentUser ? (
     <>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
@@ -35,13 +35,18 @@ const Routes = () => {
           options={({ route }) => ({ title: `Game ${route.params.id}` })}
         />
         <Stack.Screen name="List" component={List} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="ResetPsw" component={ResetPsw} />
         <Stack.Screen name="Library" component={Library} />
         <Stack.Screen name="Account" component={Account} />
       </Stack.Navigator>
-      {currentUser && <Navbar />}
+      <Navbar />
+    </>
+  ) : (
+    <>
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="ResetPsw" component={ResetPsw} />
+      </Stack.Navigator>
     </>
   );
 };

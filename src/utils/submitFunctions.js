@@ -1,3 +1,4 @@
+import uuid from "react-native-uuid";
 // sign in user, handle error & loading state
 export const loginUser = async (
   email,
@@ -37,6 +38,7 @@ export const registerUser = async (
     setError("");
     setSubmitting(false);
     saveUser({
+      id: uuid.v4(),
       email: email,
       name: name,
     });

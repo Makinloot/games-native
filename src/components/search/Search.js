@@ -1,10 +1,22 @@
-import { View, TextInput, TouchableOpacity, Keyboard } from "react-native";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Keyboard,
+  Text,
+  TouchableWithoutFeedback,
+} from "react-native";
+import {
+  MaterialCommunityIcons,
+  MaterialIcons,
+  AntDesign,
+} from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import requests from "../../utils/requests";
 import SearchResults from "./SearchResults";
 import UserProfile from "../userProfile/UserProfile";
+import { useAppContext } from "../../utils/context/ContextProvider";
 
 // navigate to list page by query
 const handleSubmit = (navigation, query) => {
@@ -18,6 +30,12 @@ const Search = ({ navigation }) => {
   const [active, setActive] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const { handleSignout } = useAppContext();
+
+  const handleSideBar = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     // if search value is less than 3 characters set empty array in searchResults state
@@ -64,9 +82,32 @@ const Search = ({ navigation }) => {
         </View>
         <View className="mx-2 h-[60%] w-[1px] bg-white/40" />
         <View className="p-1">
-          <UserProfile stylesImage="h-9 w-9" />
+          <UserProfile stylesImage="h-9 w-9" sideBar={handleSideBar} />
         </View>
       </View>
+      {isOpen && (
+        <View className="mt-4 h-[100px] w-full items-center justify-center py-4 ease-in">
+          <TouchableOpacity
+            onPress={() => setIsOpen(false)}
+            className="absolute -top-3 left-0"
+          >
+            <AntDesign name="close" color="white" size={28} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            className="w-1/2"
+            onPress={() => navigation.navigate("Account")}
+          >
+            <Text className=" bg-lightBlue text-center font-robotoBold text-base capitalize text-white">
+              profile
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity className="w-1/2" onPress={handleSignout}>
+            <Text className="mt-2 bg-lightBlue text-center font-robotoBold text-base capitalize text-white">
+              sign out
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
       {active && (
         <SearchResults
           searchResults={searchResults}

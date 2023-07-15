@@ -25,4 +25,5 @@ export default requests = {
   genres: `https://api.rawg.io/api/genres?key=${API_KEY}`,
   genre: `https://api.rawg.io/api/games?key=${API_KEY}&genres=`,
   search: `https://api.rawg.io/api/games?key=${API_KEY}&search_exact=true&exclude_additions=true&ordering=metacritic=50,100&page=1&page_size=10&metacritic=50,100&search=`,
+  games_collection: `https://api.rawg.io/api/games?key=${API_KEY}&ids=`,
 };

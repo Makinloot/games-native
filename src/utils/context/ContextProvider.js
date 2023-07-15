@@ -6,7 +6,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth, db, dbRefUsers } from "../../../config/firebase";
-import { push, ref } from "firebase/database";
+import { push, ref, get, remove, child } from "firebase/database";
 
 // context
 const Context = React.createContext(null);
@@ -45,6 +45,33 @@ const saveUser = (value) => {
 const ContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+
+  // like & dislike
+  const likedItems = async (value) => {
+    // Liked collection reference
+    const userLikedCollectionRef = ref(db, `liked/${currentUser.uid}`);
+    // Create a reference to the user's liked collection
+    const likedCollectionSnapshot = await get(userLikedCollectionRef);
+    // Check if the item already exists in the collection
+    const itemExists =
+      likedCollectionSnapshot.exists() &&
+      Object.values(likedCollectionSnapshot.val()).includes(value);
+
+    if (itemExists) {
+      // Item already exists, remove it from the database
+      const itemKey = Object.keys(likedCollectionSnapshot.val()).find(
+        (key) => likedCollectionSnapshot.val()[key] === value
+      );
+      if (itemKey) {
+        const itemRef = child(userLikedCollectionRef, itemKey);
+        await remove(itemRef);
+      }
+    } else {
+      // Item doesn't exist, push it to the database
+      push(userLikedCollectionRef, value);
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -53,6 +80,7 @@ const ContextProvider = ({ children }) => {
 
     return unsubscribe;
   }, []);
+
   return (
     <Context.Provider
       value={{
@@ -62,6 +90,7 @@ const ContextProvider = ({ children }) => {
         currentUser,
         handleSignout,
         saveUser,
+        likedItems,
       }}
     >
       {!loading && children}

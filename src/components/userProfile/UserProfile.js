@@ -3,19 +3,19 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import defaultUser from "../../../assets/user.png";
 import { getUser } from "../../utils/hooks/useDb";
+import { useState } from "react";
 
-const UserProfile = ({ stylesContainer, stylesImage }) => {
+const UserProfile = ({ stylesContainer, stylesImage, sideBar }) => {
   const { navigate } = useNavigation();
 
-  const { email } = getUser();
-
   return (
-    <TouchableOpacity
-      className={`${stylesContainer} items-center justify-center bg-lightBlue`}
-      onPress={() => navigate("Account")}
-      activeOpacity={1}
-    >
-      {/* {currentUser?.photoURL ? (
+    <>
+      <TouchableOpacity
+        className={`${stylesContainer} pointer-events-none items-center justify-center bg-lightBlue`}
+        onPress={() => (sideBar ? sideBar() : navigate("Account"))}
+        activeOpacity={1}
+      >
+        {/* {currentUser?.photoURL ? (
           <Image
             source={{ uri: currentUser.photoURL }}
             className="h-full w-full"
@@ -26,8 +26,9 @@ const UserProfile = ({ stylesContainer, stylesImage }) => {
             {currentUser.email.split("")[0]}
           </Text>
         )} */}
-      <Image source={defaultUser} className={stylesImage} />
-    </TouchableOpacity>
+        <Image source={defaultUser} className={stylesImage} />
+      </TouchableOpacity>
+    </>
   );
 };
 
