@@ -18,11 +18,12 @@ const CardVertical = ({ background_image, name, platforms, released }) => {
       />
       <View className="w-full justify-between">
         <Text
-          className="w-[60%] font-robotoBold text-base text-white"
+          className={`w-[60%] font-robotoBold text-base text-white`}
           numberOfLines={1}
         >
           {name}
         </Text>
+
         <View className="flex-row gap-1">{filterGamePlatforms(platforms)}</View>
         <Text className="font-robotoLight text-xs text-white">
           {released?.split("-").reverse().join(".")}

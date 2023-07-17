@@ -2,17 +2,15 @@ import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import UserProfile from "../components/userProfile/UserProfile";
 import { getUser } from "../utils/hooks/useDb";
 import { Ionicons } from "@expo/vector-icons";
-
-import "firebase/database";
 import { useAppContext } from "../utils/context/ContextProvider";
+import AccountDetails from "../components/AccountDetails";
 
 const Account = () => {
   const { currentUser } = useAppContext();
   const { name } = getUser(currentUser.email);
-
   return (
     <View className="flex-1 bg-nightBlue p-2">
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView>
         <View className="h-[30vh] items-center justify-center">
           <View className="">
             <UserProfile stylesContainer="rounded-full p-4" />
@@ -27,6 +25,7 @@ const Account = () => {
             {name}
           </Text>
         </View>
+        <AccountDetails />
       </ScrollView>
     </View>
   );

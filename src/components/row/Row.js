@@ -48,7 +48,7 @@ const Row = ({ title, url, useMap, navigate }) => {
     else return <RowSkeleton />;
   }
   return (
-    <View className="my-8">
+    <View className="">
       {title && (
         <View className="mb-4 flex-row items-center justify-between">
           <Text className="font-robotoLight text-xl capitalize text-white">

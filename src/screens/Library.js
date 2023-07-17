@@ -1,11 +1,10 @@
 import { View, Text } from "react-native";
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 import UserProfile from "../components/userProfile/UserProfile";
 import requests from "../utils/requests";
 import PaginatedList from "../components/PaginatedList";
 import { getLikedItems } from "../utils/hooks/useDb";
-import { onValue, ref } from "firebase/database";
-import { db } from "../../config/firebase";
+
 import { useAppContext } from "../utils/context/ContextProvider";
 
 const Library = () => {
@@ -25,7 +24,6 @@ const Library = () => {
         <Text className="font-robotoBold text-white">Liked games</Text>
       </View>
 
-      {/* TODO: retrieve liked items instead of yearlyUrl data */}
       <View className="flex-1">
         <PaginatedList
           api_url={likes.length > 0 && `${requests.games_collection}${likes}`}

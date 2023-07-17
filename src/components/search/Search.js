@@ -4,14 +4,13 @@ import {
   TouchableOpacity,
   Keyboard,
   Text,
-  TouchableWithoutFeedback,
 } from "react-native";
 import {
   MaterialCommunityIcons,
   MaterialIcons,
   AntDesign,
 } from "@expo/vector-icons";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import requests from "../../utils/requests";
 import SearchResults from "./SearchResults";

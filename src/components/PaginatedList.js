@@ -32,7 +32,7 @@ const PaginatedList = ({ api_url, list_name }) => {
     const contentHeight = contentSize.height;
     const scrollPosition = contentOffset.y;
 
-    if (scrollPosition + containerHeight >= contentHeight - 20) {
+    if (scrollPosition + containerHeight >= contentHeight - 100) {
       return true;
     }
   };
@@ -69,6 +69,7 @@ const PaginatedList = ({ api_url, list_name }) => {
       ref={scrollViewRef}
       onScroll={(e) => handleScroll(e) && fetchNextPage()}
       scrollEventThrottle={300}
+      showsVerticalScrollIndicator={false}
     >
       {data?.pages?.map((page, i) => (
         <View key={i}>

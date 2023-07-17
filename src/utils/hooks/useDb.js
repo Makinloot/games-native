@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { onValue, ref } from "firebase/database";
+import { onValue, ref, update, get } from "firebase/database";
 import { db, dbRefUsers } from "../../../config/firebase";
+
+// get users from db
 export function getUser(email) {
   const [user, setUser] = useState({});
   useEffect(() => {
@@ -13,6 +15,24 @@ export function getUser(email) {
   }, []);
 
   return user;
+}
+
+// update user
+export async function updateUser(email, keyName, newValue) {
+  try {
+    const snapshot = await get(dbRefUsers);
+    snapshot.forEach((item) => {
+      const user = item.val();
+      if (user.email === email) {
+        const updates = {};
+        // if name is being updated
+        if (keyName === "name") updates[item.key] = { ...user, name: newValue };
+        update(dbRefUsers, updates);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // return array of liked items ids
