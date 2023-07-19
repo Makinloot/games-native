@@ -1,10 +1,10 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { useEffect, useState, useRef } from "react";
 import DetailsText from "../DetailsText";
 import noImg from "../../../assets/no-img.png";
 import { AntDesign } from "@expo/vector-icons";
 import { useAppContext } from "../../utils/context/ContextProvider";
 import { getLikedItems } from "../../utils/hooks/useDb";
+import { useEffect, useState } from "react";
 
 const GameDetails = ({
   background_image,
@@ -17,9 +17,8 @@ const GameDetails = ({
 }) => {
   const { likedItems, currentUser } = useAppContext();
   const likes = getLikedItems(currentUser.uid);
+
   const [isLiked, setIsLiked] = useState(false);
-  const [descriptionSize, setDescriptionSize] = useState(10);
-  const descriptionRef = useRef();
 
   // convert release date into more readable date
   const formattedDate = new Date(released).toLocaleDateString("en-US", {
@@ -38,37 +37,16 @@ const GameDetails = ({
     setIsLiked(false);
   };
 
-  // if description length is more than 700 characters show "show more" btn
-  const fullDescription = () => {
-    if (description_raw.length > 700) {
-      return (
-        <TouchableOpacity
-          className="mt-1"
-          onPress={() =>
-            descriptionSize >= 10
-              ? setDescriptionSize(0)
-              : setDescriptionSize(10)
-          }
-        >
-          <Text className="font-roboto text-white/40">
-            {descriptionSize === 0 ? "Show less" : "Show more"}
-          </Text>
-        </TouchableOpacity>
-      );
-    }
-  };
-
   useEffect(() => {
     filterLikes(id);
   }, [likes]);
 
   return (
-    <View className="">
+    <View>
       {/* game image and name */}
       <Image
         source={background_image ? { uri: background_image } : noImg}
-        className="h-[50vh] max-h-[500px] w-full"
-        style={{ resizeMode: "cover" }}
+        className="h-56 w-full"
       />
       <Text className="my-3 font-robotoBold text-xl text-white">{name}</Text>
 
@@ -82,16 +60,12 @@ const GameDetails = ({
       <DetailsText title="released" customText={formattedDate} />
 
       {/* game description */}
-      <View className="my-4">
-        <Text
-          className="font-robotoLight text-sm text-white"
-          numberOfLines={descriptionSize}
-          ref={descriptionRef}
-        >
-          {description_raw}
-        </Text>
-        {fullDescription()}
-      </View>
+      <Text
+        className="my-4 font-robotoLight text-sm text-white"
+        numberOfLines={10}
+      >
+        {description_raw}
+      </Text>
 
       {/* like button */}
       <View className="mb-6">

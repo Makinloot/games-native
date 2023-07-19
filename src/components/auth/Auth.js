@@ -8,10 +8,10 @@ import AuthReset from "./AuthReset";
 const Auth = ({ login, reset }) => {
   return (
     <ScrollView
-      className="mt-8 h-[50px] w-full max-w-[340px]"
+      className="mt-8 w-full max-w-[340px]"
       showsVerticalScrollIndicator={false}
     >
-      <View className="">
+      <View className="items-center">
         {/* Auth title */}
         <Text className="mb-8 self-start font-roboto text-4xl text-white">
           {login

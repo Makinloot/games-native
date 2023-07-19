@@ -5,19 +5,16 @@ import { useGet } from "../../utils/hooks/useGet";
 import RowSkeleton from "./RowSkeleton";
 import { useNavigation } from "@react-navigation/native";
 
-const Row = ({ title, url, useMap }) => {
-  const { navigate } = useNavigation();
+const Row = ({ title, url, useMap, navigate }) => {
+  const navigation = useNavigation();
   const { data, refetch, isLoading, isFetching } = useGet(url, title);
-  const handleNavigation = (id, name) => navigate("Game", { id, name });
   // return list of Card using FlatList
   function renderFlatList(data) {
     return (
       <FlatList
         data={data?.results}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => handleNavigation(item.id, item.name)}
-          >
+          <TouchableOpacity onPress={() => navigate && navigate(item.id)}>
             <Card {...item} />
           </TouchableOpacity>
         )}
@@ -34,7 +31,7 @@ const Row = ({ title, url, useMap }) => {
       <TouchableOpacity
         key={item.id}
         className="mt-2"
-        onPress={() => handleNavigation(item.id, item.name)}
+        onPress={() => navigate && navigate(item.id)}
       >
         <Card {...item} vertical />
       </TouchableOpacity>
@@ -59,7 +56,7 @@ const Row = ({ title, url, useMap }) => {
           </Text>
           <TouchableOpacity
             onPress={() =>
-              navigate("List", {
+              navigation.navigate("List", {
                 list_url: url,
                 filtered_by: title,
               })

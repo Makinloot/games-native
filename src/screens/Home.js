@@ -7,6 +7,7 @@ import { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 
 const Home = ({ navigation }) => {
+  const handleNavigation = () => navigation.navigate("Browse");
   const { handleSignout, currentUser, saveUser } = useAppContext();
   const { name, id } = getUser(currentUser.email);
   const [isOpen, setIsOpen] = useState(false);
@@ -49,13 +50,25 @@ const Home = ({ navigation }) => {
           </View>
         )}
         <View className="my-5">
-          <Row title="best of the week" url={requests.weekly} />
+          <Row
+            title="best of the week"
+            url={requests.weekly}
+            navigate={handleNavigation}
+          />
         </View>
         <View className="my-5">
-          <Row title="popular upcoming" url={requests.upcoming} />
+          <Row
+            title="popular upcoming"
+            url={requests.upcoming}
+            navigate={handleNavigation}
+          />
         </View>
         <View className="my-5">
-          <Row title="best of 2023" url={requests.yearlyUrl} />
+          <Row
+            title="best of 2023"
+            url={requests.yearlyUrl}
+            navigate={handleNavigation}
+          />
         </View>
       </ScrollView>
     </View>
