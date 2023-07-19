@@ -15,7 +15,6 @@ const AccountDetails = () => {
   const [isEdited, setIsEdited] = useState("");
   const [newNameValue, setNewNameValue] = useState("");
   return (
-<<<<<<< HEAD
     <View className="my-5 items-center justify-center px-5">
       <View className="w-full max-w-[500px]">
         <View className="flex-row items-center py-3">
@@ -33,7 +32,7 @@ const AccountDetails = () => {
             <TextInput
               placeholder="New name ..."
               className={`ml-2 w-[220px] font-roboto text-base capitalize text-white ${
-                Platform.OS === "ios" ? "pb-3 pt-1" : "py-2"
+                Platform.OS === "ios" ? "pb-4 pt-2" : "py-2"
               }`}
               placeholderTextColor="gray"
               onChangeText={(e) => setNewNameValue(e)}
@@ -74,66 +73,7 @@ const AccountDetails = () => {
             Sign out
           </Text>
         </TouchableOpacity>
-=======
-    <View className="my-5 justify-center px-5">
-      <View className="flex-row items-center py-3">
-        <Text className="font-roboto text-base capitalize text-white/50">
-          email
-        </Text>
-        <Text className="ml-2 font-roboto text-base capitalize text-white">
-          {email}
-        </Text>
-        {/* <TextInput /> */}
-        <View className="absolute bottom-0 mt-2 h-[1px] w-full bg-white/30" />
->>>>>>> parent of 97f7e42 (add responsive styles & fix some styles, add custom icons, change Screen.stack styles)
       </View>
-      <View className="flex-row items-center py-1">
-        <Text className="font-roboto text-base capitalize text-white/50">
-          first name
-        </Text>
-        {isEdited === "name" ? (
-          <TextInput
-            placeholder="New name ..."
-            className="ml-2 w-[220px] py-2 font-roboto text-base capitalize text-white"
-            placeholderTextColor="gray"
-            onChangeText={(e) => setNewNameValue(e)}
-            value={newNameValue}
-            onSubmitEditing={() => {
-              setIsEdited("");
-              updateUser(email, "name", newNameValue);
-              setNewNameValue("");
-            }}
-          />
-        ) : (
-          <Text className="ml-2 py-2 font-roboto text-base capitalize text-white">
-            {name}
-          </Text>
-        )}
-        {isEdited === "name" ? (
-          <TouchableOpacity
-            className="absolute right-2 h-full w-8 items-center justify-center"
-            onPress={() => setIsEdited("")}
-          >
-            <AntDesign name="close" color="white" size={20} />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            className="absolute right-2 h-full w-8 items-center justify-center"
-            onPress={() => setIsEdited("name")}
-          >
-            <AntDesign name="edit" color="white" size={20} />
-          </TouchableOpacity>
-        )}
-        <View className="absolute bottom-0 mt-2 h-[1px] w-full bg-white/30" />
-      </View>
-      <TouchableOpacity
-        className="my-4 w-1/3 self-end bg-lightBlue p-2"
-        onPress={handleSignout}
-      >
-        <Text className="text-center font-robotoBold text-lg text-white">
-          Sign out
-        </Text>
-      </TouchableOpacity>
     </View>
   );
 };
