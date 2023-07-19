@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Video } from "expo-av";
 import { useGet } from "../utils/hooks/useGet";
 import { API_KEY } from "@env";
+import { useWindowDimensions } from "react-native";
 
 const ThumbnailSlider = ({ id }) => {
   const screenshotsUrl = `https://api.rawg.io/api/games/${id}/screenshots?key=${API_KEY}`;
@@ -18,6 +19,7 @@ const ThumbnailSlider = ({ id }) => {
     refetch: trailersRefetch,
   } = useGet(trailersUrl, "trailers");
 
+  const { width } = useWindowDimensions();
   const [activeScreen, setActiveScreen] = useState("");
   const [activeVideo, setActiveVideo] = useState(null);
   const video = useRef(null);
@@ -35,7 +37,7 @@ const ThumbnailSlider = ({ id }) => {
           source={{
             uri: activeVideo.trailer || trailersData?.results[0]?.data.max,
           }}
-          className="mb-2 h-56 w-full"
+          className={`mb-2 ${width <= 480 ? "h-56" : "h-[40vh]"} w-full`}
           useNativeControls
           isLooping
           posterSource={{
@@ -47,7 +49,7 @@ const ThumbnailSlider = ({ id }) => {
       ) : (
         <Image
           source={{ uri: activeScreen || screenshotsData?.results[0]?.image }}
-          className="mb-2 h-56 w-full"
+          className={`mb-2 ${width <= 480 ? "h-56" : "h-[40vh]"} w-full`}
           style={{ resizeMode: "contain" }}
         />
       )}

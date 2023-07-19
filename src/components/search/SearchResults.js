@@ -1,7 +1,15 @@
-import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  useWindowDimensions,
+} from "react-native";
 import noImg from "../../../assets/no-img.png";
 const SearchResults = ({ searchResults, navigation, setInputValue }) => {
   const handleNavigation = (id) => navigation.navigate("Game", { id });
+  const { width } = useWindowDimensions();
   return (
     <ScrollView className={searchResults.length > 0 && "mt-2 h-auto max-h-72"}>
       {searchResults
@@ -18,7 +26,7 @@ const SearchResults = ({ searchResults, navigation, setInputValue }) => {
               source={
                 item.background_image ? { uri: item.background_image } : noImg
               }
-              className={`h-14 w-28`}
+              className={`${width <= 480 ? "h-14 w-28" : "h-24 w-44"}`}
               style={{ resizeMode: "cover" }}
             />
             <View className="ml-2 justify-around">

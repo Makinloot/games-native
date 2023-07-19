@@ -26,13 +26,30 @@ const Routes = () => {
 
   return currentUser ? (
     <>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "#171a21",
+          },
+          cardStyle: {
+            backgroundColor: "#171a21",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          headerTitleAlign: "center",
+          statusBarTranslucent: true,
+        }}
+      >
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Browse" component={Browse} />
         <Stack.Screen
           name="Game"
           component={Game}
-          options={({ route }) => ({ title: `Game ${route.params.id}` })}
+          options={({ route }) => ({
+            title: `${route.params.name}`,
+          })}
         />
         <Stack.Screen name="List" component={List} />
         <Stack.Screen name="Library" component={Library} />
@@ -42,7 +59,22 @@ const Routes = () => {
     </>
   ) : (
     <>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "#171a21",
+          },
+          cardStyle: {
+            backgroundColor: "#171a21",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          headerTitleAlign: "center",
+          statusBarTranslucent: true,
+        }}
+      >
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="ResetPsw" component={ResetPsw} />

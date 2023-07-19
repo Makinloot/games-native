@@ -25,7 +25,8 @@ const Game = ({ route, navigation }) => {
 
   const scrollToTop = () =>
     scrollViewRef?.current?.scrollTo({ y: 0, animated: true });
-  const handleNavigation = (id) => navigation.navigate("Game", { id });
+  const handleNavigation = (id, name) =>
+    navigation.navigate("Game", { id, name });
 
   useEffect(() => {
     refetch();
@@ -43,7 +44,7 @@ const Game = ({ route, navigation }) => {
         </View>
         <ScrollView
           ref={scrollViewRef}
-          className="my-5 mb-0"
+          className="my-5 mb-0 flex-1"
           showsVerticalScrollIndicator={false}
         >
           {/* game img, name, developers, publishers, released & description */}
