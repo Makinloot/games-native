@@ -39,7 +39,6 @@ export async function updateUser(email, keyName, newValue) {
 export function getLikedItems(id) {
   const [likes, setLikes] = useState([]);
   const likedDbRef = ref(db, `liked`);
-  let ids = [];
 
   useEffect(() => {
     onValue(likedDbRef, (snapshot) => {

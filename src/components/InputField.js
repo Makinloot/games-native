@@ -1,4 +1,10 @@
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import { useState } from "react";
 import { Entypo } from "@expo/vector-icons";
 
@@ -25,7 +31,9 @@ const InputField = ({
       </Text>
       <View className="relative">
         <TextInput
-          className="my-1 w-full items-center rounded-[4px] border border-white px-3 py-2 font-roboto text-base text-white"
+          className={`my-1 w-full flex-1 items-center rounded-[4px] border border-white px-3 font-roboto text-base text-white ${
+            Platform.OS === "ios" ? "pb-3 pt-1" : "py-2"
+          }`}
           placeholderTextColor="white"
           placeholder={placeholder}
           onChangeText={handleChange}
