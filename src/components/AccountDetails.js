@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Platform,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useAppContext } from "../utils/context/ContextProvider";
 import { getUser, updateUser } from "../utils/hooks/useDb";
@@ -21,7 +15,9 @@ const AccountDetails = () => {
           <Text className="font-roboto text-base capitalize text-white/50">
             email
           </Text>
-          <Text className="ml-2 font-roboto text-base text-white">{email}</Text>
+          <Text className="ml-2 font-roboto text-base capitalize text-white">
+            {email}
+          </Text>
           <View className="absolute bottom-0 mt-2 h-[1px] w-full bg-white/30" />
         </View>
         <View className="flex-row items-center py-1">
@@ -31,9 +27,7 @@ const AccountDetails = () => {
           {isEdited === "name" ? (
             <TextInput
               placeholder="New name ..."
-              className={`ml-2 w-[220px] font-roboto text-base capitalize text-white ${
-                Platform.OS === "ios" ? "pb-4 pt-2" : "py-2"
-              }`}
+              className="ml-2 w-[220px] py-2 font-roboto text-base capitalize text-white"
               placeholderTextColor="gray"
               onChangeText={(e) => setNewNameValue(e)}
               value={newNameValue}

@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   Keyboard,
   Text,
-  Platform,
 } from "react-native";
 import {
   MaterialCommunityIcons,
@@ -52,9 +51,7 @@ const Search = ({ navigation }) => {
         <View className="relative w-full flex-1 px-2">
           <TextInput
             placeholder="Search"
-            className={`h-full w-full font-roboto text-lg text-white ${
-              Platform.OS === "ios" && "pb-2"
-            }`}
+            className="h-full w-full font-roboto text-lg text-white"
             placeholderTextColor="white"
             autoCorrect={false}
             onFocus={() => setActive(true)}
