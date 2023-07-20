@@ -8,6 +8,7 @@ const AccountDetails = () => {
   const { name, email } = getUser(currentUser.email);
   const [isEdited, setIsEdited] = useState("");
   const [newNameValue, setNewNameValue] = useState("");
+
   return (
     <View className="my-5 items-center justify-center px-5">
       <View className="w-full max-w-[500px]">
@@ -60,7 +61,7 @@ const AccountDetails = () => {
           <View className="absolute bottom-0 mt-2 h-[1px] w-full bg-white/30" />
         </View>
         <TouchableOpacity
-          className="my-4 w-1/3 self-end bg-lightBlue p-2"
+          className="my-4 w-[150px] self-end bg-lightBlue p-2"
           onPress={handleSignout}
         >
           <Text className="text-center font-robotoBold text-lg text-white">

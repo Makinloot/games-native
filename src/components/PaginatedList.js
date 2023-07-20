@@ -12,7 +12,8 @@ const PaginatedList = ({ api_url, list_name }) => {
 
   // navigation
   const navigation = useNavigation();
-  const handleNavigation = (id) => navigation.navigate("Game", { id });
+  const handleNavigation = (id, name) =>
+    navigation.navigate("Game", { id, name });
 
   // fetch data
   const fetchPage = async ({ pageParam = 1 }) => {
@@ -77,7 +78,7 @@ const PaginatedList = ({ api_url, list_name }) => {
             <View key={game.id}>
               <TouchableOpacity
                 key={idx}
-                onPress={() => handleNavigation(game.id)}
+                onPress={() => handleNavigation(game.id, game.name)}
               >
                 <Card {...game} vertical />
               </TouchableOpacity>

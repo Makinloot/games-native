@@ -6,17 +6,21 @@ import { useAppContext } from "../utils/context/ContextProvider";
 import AccountDetails from "../components/AccountDetails";
 
 const Account = () => {
-  const { currentUser } = useAppContext();
+  const { currentUser, pickImage } = useAppContext();
   const { name } = getUser(currentUser.email);
+
   return (
     <View className="flex-1 bg-nightBlue p-2">
       <ScrollView>
         <View className="h-[30vh] items-center justify-center">
           <View className="">
-            <UserProfile stylesContainer="rounded-full p-4" />
+            <UserProfile
+              stylesContainer="rounded-full p-4 h-28 w-28"
+              stylesImage="h-28 w-28 rounded-full"
+            />
 
             <View className="absolute bottom-0 right-0 z-20 rounded-full bg-slate-700 p-1">
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => pickImage()}>
                 <Ionicons name="add" color="white" size={28} />
               </TouchableOpacity>
             </View>

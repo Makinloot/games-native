@@ -7,6 +7,13 @@ import {
 } from "firebase/auth";
 import { auth, db, dbRefUsers } from "../../../config/firebase";
 import { push, ref, get, remove, child } from "firebase/database";
+import {
+  getDownloadURL,
+  getStorage,
+  ref as StorageRef,
+  uploadBytes,
+} from "firebase/storage";
+import * as ImagePicker from "expo-image-picker";
 
 // context
 const Context = React.createContext(null);
@@ -45,6 +52,9 @@ const saveUser = (value) => {
 const ContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+  const [avatar, setAvatar] = useState("");
+  const [image, setImage] = useState();
+  const [isImageChanged, setIsImageChanged] = useState(0);
 
   // like & dislike
   const likedItems = async (value) => {
@@ -72,7 +82,53 @@ const ContextProvider = ({ children }) => {
     }
   };
 
+  // pick image
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    const source = { uri: result.assets[0].uri };
+    setImage(source);
+  };
+
+  // upload image to firebase storage
+  const uploadImage = async () => {
+    try {
+      const response = await fetch(image.uri);
+      const blob = await response.blob();
+
+      const storage = getStorage();
+      const avatarsRef = StorageRef(storage, `avatars/${currentUser.uid}`);
+
+      uploadBytes(avatarsRef, blob).then((snapshot) => {
+        // cause rerender to display new image
+        setIsImageChanged(1);
+        // console.log("Uploaded a blob or file!");
+      });
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  // display image
+  const displayImage = async () => {
+    try {
+      const storage = getStorage();
+      const avatarsRef = StorageRef(storage, `avatars/${currentUser.uid}`);
+      const downloadURL = await getDownloadURL(avatarsRef);
+      setAvatar(downloadURL);
+    } catch (error) {
+      console.log(error);
+      setAvatar("");
+    }
+  };
+
   useEffect(() => {
+    // store current user
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);
@@ -80,6 +136,14 @@ const ContextProvider = ({ children }) => {
 
     return unsubscribe;
   }, []);
+
+  useEffect(() => {
+    // upload & change user avatar
+    if (currentUser) {
+      uploadImage();
+      displayImage();
+    }
+  }, [currentUser, image?.uri, isImageChanged]);
 
   return (
     <Context.Provider
@@ -91,6 +155,8 @@ const ContextProvider = ({ children }) => {
         handleSignout,
         saveUser,
         likedItems,
+        avatar,
+        pickImage,
       }}
     >
       {!loading && children}

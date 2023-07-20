@@ -89,7 +89,7 @@ const AuthLogin = () => {
           className="mb-3 mt-5"
           onPress={() => navigation.navigate("ResetPsw")}
         >
-          <Text className="font-roboto text-sm text-white underline">
+          <Text className="text-center font-roboto text-sm text-white underline">
             Forgot your password?
           </Text>
         </TouchableOpacity>

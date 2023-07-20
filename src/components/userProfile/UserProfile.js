@@ -1,12 +1,44 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-
 import { useNavigation } from "@react-navigation/native";
 import defaultUser from "../../../assets/user.png";
-import { getUser } from "../../utils/hooks/useDb";
-import { useState } from "react";
+import { useAppContext } from "../../utils/context/ContextProvider";
+import noImg from "../../../assets/no-img.png";
 
-const UserProfile = ({ stylesContainer, stylesImage, sideBar }) => {
+const UserProfile = ({ stylesContainer, stylesImage, sideBar, cover }) => {
   const { navigate } = useNavigation();
+  const { avatar } = useAppContext();
+
+  if (!avatar)
+    return (
+      <View className="absolute w-full">
+        <Image
+          source={defaultUser}
+          className="absolute h-[30vh] w-full"
+          style={{ resizeMode: "contain" }}
+        />
+        <TouchableOpacity onPress={() => navigate("Account")}>
+          <Text className="self-end font-robotoBold text-base text-white">
+            Account settings
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  if (cover) {
+    return (
+      <View className="absolute w-full">
+        <Image
+          source={{ uri: avatar }}
+          className="absolute h-[30vh] w-full"
+          style={{ resizeMode: "cover" }}
+        />
+        <TouchableOpacity onPress={() => navigate("Account")}>
+          <Text className="self-end font-robotoBold text-base text-white">
+            Account settings
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   return (
     <>
@@ -15,18 +47,15 @@ const UserProfile = ({ stylesContainer, stylesImage, sideBar }) => {
         onPress={() => (sideBar ? sideBar() : navigate("Account"))}
         activeOpacity={1}
       >
-        {/* {currentUser?.photoURL ? (
+        {avatar ? (
           <Image
-            source={{ uri: currentUser.photoURL }}
-            className="h-full w-full"
+            source={{ uri: avatar }}
+            className={`${stylesImage}`}
             style={{ resizeMode: "cover" }}
           />
         ) : (
-          <Text className="font-robotoLight text-4xl uppercase text-white">
-            {currentUser.email.split("")[0]}
-          </Text>
-        )} */}
-        <Image source={defaultUser} className={stylesImage} />
+          <Image source={defaultUser} className={stylesImage} />
+        )}
       </TouchableOpacity>
     </>
   );

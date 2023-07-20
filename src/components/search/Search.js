@@ -81,7 +81,11 @@ const Search = ({ navigation }) => {
         </View>
         <View className="mx-2 h-[60%] w-[1px] bg-white/40" />
         <View className="p-1">
-          <UserProfile stylesImage="h-9 w-9" sideBar={handleSideBar} />
+          <UserProfile
+            stylesImage="h-9 w-9"
+            stylesContainer="h-9 w-9"
+            sideBar={handleSideBar}
+          />
         </View>
       </View>
       {isOpen && (
