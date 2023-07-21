@@ -1,13 +1,17 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { useAppContext } from "../utils/context/ContextProvider";
-import { getUser, updateUser } from "../utils/hooks/useDb";
+import { useAppContext } from "../../utils/context/ContextProvider";
+import { getUser, updateUser } from "../../utils/hooks/useDb";
 import { useState } from "react";
+import { deleteUserData, deactivateAccount } from "./accountFunctions";
+
 const AccountDetails = () => {
   const { currentUser, handleSignout } = useAppContext();
-  const { name, email } = getUser(currentUser.email);
+  const { name, email, id } = getUser(currentUser.email);
   const [isEdited, setIsEdited] = useState("");
   const [newNameValue, setNewNameValue] = useState("");
+  const [isInputVisible, setIsInputVisible] = useState(false);
+  const [password, setPassword] = useState("");
 
   return (
     <View className="my-5 items-center justify-center px-5">
@@ -60,12 +64,39 @@ const AccountDetails = () => {
           )}
           <View className="absolute bottom-0 mt-2 h-[1px] w-full bg-white/30" />
         </View>
+
+        {/* TODO: add ui to delete account in more appealing way */}
+        {isInputVisible && (
+          <TextInput
+            placeholder="password"
+            placeholderTextColor="white"
+            className="border border-white text-white"
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            onSubmitEditing={() =>
+              deactivateAccount(currentUser.email, password)
+            }
+            // secureTextEntry
+          />
+        )}
+
         <TouchableOpacity
-          className="my-4 w-[150px] self-end bg-lightBlue p-2"
+          className="mt-4 w-full bg-lightBlue p-2"
           onPress={handleSignout}
         >
           <Text className="text-center font-robotoBold text-lg text-white">
             Sign out
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          className="mt-4 w-full bg-red-600 p-2"
+          onPress={() => {
+            setIsInputVisible(true);
+          }}
+        >
+          <Text className="text-center font-robotoBold text-lg text-white">
+            Delete account
           </Text>
         </TouchableOpacity>
       </View>

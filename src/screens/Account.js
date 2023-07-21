@@ -3,7 +3,7 @@ import UserProfile from "../components/userProfile/UserProfile";
 import { getUser } from "../utils/hooks/useDb";
 import { Ionicons } from "@expo/vector-icons";
 import { useAppContext } from "../utils/context/ContextProvider";
-import AccountDetails from "../components/AccountDetails";
+import AccountDetails from "../components/AccountDetails/AccountDetails";
 
 const Account = () => {
   const { currentUser, pickImage } = useAppContext();

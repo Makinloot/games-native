@@ -8,7 +8,7 @@ const UserProfile = ({ stylesContainer, stylesImage, sideBar, cover }) => {
   const { navigate } = useNavigation();
   const { avatar } = useAppContext();
 
-  if (!avatar)
+  if (!avatar && cover) {
     return (
       <View className="absolute w-full">
         <Image
@@ -23,6 +23,7 @@ const UserProfile = ({ stylesContainer, stylesImage, sideBar, cover }) => {
         </TouchableOpacity>
       </View>
     );
+  }
   if (cover) {
     return (
       <View className="absolute w-full">

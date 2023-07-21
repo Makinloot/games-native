@@ -6,7 +6,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth, db, dbRefUsers } from "../../../config/firebase";
-import { push, ref, get, remove, child } from "firebase/database";
+import { push, ref, get, remove, child, update } from "firebase/database";
 import {
   getDownloadURL,
   getStorage,
@@ -104,7 +104,7 @@ const ContextProvider = ({ children }) => {
       const storage = getStorage();
       const avatarsRef = StorageRef(storage, `avatars/${currentUser.uid}`);
 
-      uploadBytes(avatarsRef, blob).then((snapshot) => {
+      uploadBytes(avatarsRef, blob).then(() => {
         // cause rerender to display new image
         setIsImageChanged(1);
         // console.log("Uploaded a blob or file!");
