@@ -53,7 +53,7 @@ export const deleteUser = async (currentUser) => {
 };
 
 // make user reauthenticate then deactivate account
-export const deactivateAccount = async (email, password) => {
+export const deactivateAccount = async (email, password, setError) => {
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -63,11 +63,16 @@ export const deactivateAccount = async (email, password) => {
   if (password) {
     // first try to reauthenticate user
     try {
+      setError("");
       await reauthenticateWithCredential(user, credential);
 
       // after reauthenticate try to delete user
       deleteUser(user);
     } catch (error) {
+      if (error.code === "auth/wrong-password") setError("Incorrect password");
+      else if (error.code === "auth/too-many-requests")
+        setError("Too many failed requests, try again later.");
+      else setError("Something went wrong, please try again later");
       console.log("error reauthenticating", error);
     }
   }

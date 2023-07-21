@@ -77,7 +77,11 @@ const Routes = () => {
       >
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="ResetPsw" component={ResetPsw} />
+        <Stack.Screen
+          name="ResetPsw"
+          component={ResetPsw}
+          options={{ title: "Password recovery" }}
+        />
       </Stack.Navigator>
     </>
   );

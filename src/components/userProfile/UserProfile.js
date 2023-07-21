@@ -2,7 +2,6 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import defaultUser from "../../../assets/user.png";
 import { useAppContext } from "../../utils/context/ContextProvider";
-import noImg from "../../../assets/no-img.png";
 
 const UserProfile = ({ stylesContainer, stylesImage, sideBar, cover }) => {
   const { navigate } = useNavigation();

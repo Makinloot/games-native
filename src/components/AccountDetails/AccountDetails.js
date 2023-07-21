@@ -3,15 +3,15 @@ import { AntDesign } from "@expo/vector-icons";
 import { useAppContext } from "../../utils/context/ContextProvider";
 import { getUser, updateUser } from "../../utils/hooks/useDb";
 import { useState } from "react";
-import { deleteUserData, deactivateAccount } from "./accountFunctions";
 
-const AccountDetails = () => {
+import Deactivate from "./Deactivate";
+
+const AccountDetails = ({ setLoading }) => {
   const { currentUser, handleSignout } = useAppContext();
-  const { name, email, id } = getUser(currentUser.email);
+  const { name, email } = getUser(currentUser.email);
   const [isEdited, setIsEdited] = useState("");
   const [newNameValue, setNewNameValue] = useState("");
   const [isInputVisible, setIsInputVisible] = useState(false);
-  const [password, setPassword] = useState("");
 
   return (
     <View className="my-5 items-center justify-center px-5">
@@ -65,21 +65,15 @@ const AccountDetails = () => {
           <View className="absolute bottom-0 mt-2 h-[1px] w-full bg-white/30" />
         </View>
 
-        {/* TODO: add ui to delete account in more appealing way */}
+        {/* delete account */}
         {isInputVisible && (
-          <TextInput
-            placeholder="password"
-            placeholderTextColor="white"
-            className="border border-white text-white"
-            onChangeText={(text) => setPassword(text)}
-            value={password}
-            onSubmitEditing={() =>
-              deactivateAccount(currentUser.email, password)
-            }
-            // secureTextEntry
+          <Deactivate
+            setLoading={setLoading}
+            setIsInputVisible={setIsInputVisible}
           />
         )}
-
+      </View>
+      <View className="mt-24 w-full max-w-[500px]">
         <TouchableOpacity
           className="mt-4 w-full bg-lightBlue p-2"
           onPress={handleSignout}

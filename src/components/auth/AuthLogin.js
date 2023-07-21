@@ -71,7 +71,9 @@ const AuthLogin = () => {
 
             {/* display spin animation while submitting */}
             {isSubmitting ? (
-              <SpinAnimation iconSize={28} />
+              <View className="py-4">
+                <SpinAnimation iconSize={28} />
+              </View>
             ) : (
               <AuthButton
                 text="login"

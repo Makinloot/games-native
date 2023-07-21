@@ -67,8 +67,11 @@ const GameDetails = ({
       {/* game image and name */}
       <Image
         source={background_image ? { uri: background_image } : noImg}
-        className="h-[50vh] max-h-[500px] w-full"
-        style={{ resizeMode: "cover" }}
+        style={{
+          aspectRatio: 1.77778,
+          maxWidth: "100%",
+          maxHeight: "100%",
+        }}
       />
       <Text className="my-3 font-robotoBold text-xl text-white">{name}</Text>
 

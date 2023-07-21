@@ -4,10 +4,12 @@ import { getUser } from "../utils/hooks/useDb";
 import { Ionicons } from "@expo/vector-icons";
 import { useAppContext } from "../utils/context/ContextProvider";
 import AccountDetails from "../components/AccountDetails/AccountDetails";
-
+import SpinAnimation from "../components/SpinAnimation";
+import { useState } from "react";
 const Account = () => {
   const { currentUser, pickImage } = useAppContext();
   const { name } = getUser(currentUser.email);
+  const [loading, setLoading] = useState(false);
 
   return (
     <View className="flex-1 bg-nightBlue p-2">
@@ -29,8 +31,13 @@ const Account = () => {
             {name}
           </Text>
         </View>
-        <AccountDetails />
+        <AccountDetails setLoading={setLoading} />
       </ScrollView>
+      {loading && (
+        <View className="absolute h-full w-full items-center justify-center bg-nightBlue/75">
+          <SpinAnimation iconSize={80} />
+        </View>
+      )}
     </View>
   );
 };

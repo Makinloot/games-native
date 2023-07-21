@@ -18,6 +18,10 @@ export const loginUser = async (
     if (error.code === "auth/user-not-found") setError("User not found.");
     else if (error.code === "auth/wrong-password")
       setError("Incorrect password.");
+    else if (error.code === "auth/too-many-requests")
+      setError(
+        "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later."
+      );
     else setError("Something went wrong, please try again");
     setSubmitting(false);
   }

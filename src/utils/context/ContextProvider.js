@@ -107,7 +107,6 @@ const ContextProvider = ({ children }) => {
       uploadBytes(avatarsRef, blob).then(() => {
         // cause rerender to display new image
         setIsImageChanged(1);
-        // console.log("Uploaded a blob or file!");
       });
     } catch (error) {
       console.log("error", error);

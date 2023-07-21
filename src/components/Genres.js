@@ -34,7 +34,7 @@ const Genres = ({ navigation }) => {
           setActive={setActiveGenre}
         />
       </View>
-      <ScrollView className="">
+      <ScrollView className="" showsVerticalScrollIndicator={false}>
         {/* row component based on genre */}
         <Row
           url={`${requests.genre}${activeGenre.slug}&page_size=10`}

@@ -1,4 +1,10 @@
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import { useState } from "react";
 import { Entypo } from "@expo/vector-icons";
 
@@ -25,7 +31,9 @@ const InputField = ({
       </Text>
       <View className="relative">
         <TextInput
-          className="my-1 w-full items-center rounded-[4px] border border-white px-3 py-2 font-roboto text-base text-white"
+          className={`my-1 w-full items-center rounded-[4px] border border-white px-3 font-roboto text-base text-white 
+          ${Platform.OS === "ios" ? "h-14 py-0" : "py-2"}
+          `}
           placeholderTextColor="white"
           placeholder={placeholder}
           onChangeText={handleChange}
@@ -34,10 +42,12 @@ const InputField = ({
           secureTextEntry={secureText && !showPassword && true}
           onBlur={handleBlur}
         />
-        {/* if password input add show and hide psw button */}
+        {/* if input type password add show and hide psw button */}
         {secureText && (
           <TouchableOpacity
-            className="absolute right-3 top-3"
+            className={`absolute right-3 ${
+              Platform.OS === "ios" ? "top-5" : "top-3"
+            }`}
             onPress={() => setShowPassword(!showPassword)}
           >
             {showPassword ? (
